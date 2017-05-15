@@ -8,7 +8,11 @@ var userSchema = mongoose.Schema({
     local            : {
         email        : String,
         password     : String
-    }
+    },
+    coins    : [{
+        abrv    : String, //BTC, DASH, etc.
+        qty     : String
+    }]
 
 });
 

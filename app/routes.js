@@ -12,6 +12,7 @@ module.exports = function(app, passport) {
         res.render('profile.ejs', {
             user : req.user
         });
+        //console.log(req.user);
     });
 
     // LOGOUT ==============================

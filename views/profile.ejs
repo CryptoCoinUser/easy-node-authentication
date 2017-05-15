@@ -15,11 +15,42 @@
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="well">
+                <h2>Your Crypto Portfolio</h2>
+                <p>table goes here</p>
 
+                    <form action="/coin/add" method="post">
+                        <div class="form-group">
+                            <label>Coin Abbreviation</label>
+                            <input type="text" class="form-control" name="abrv" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Qty</label>
+                            <input type="number" class="form-control" name="qty" required="">
+                        </div>
+
+                        <button type="submit" class="btn btn-warning btn-lg">Add Coin</button>
+                    </form>
+
+                    <hr>
+                 <% if (user.coins) { %>
+                    <% for (var i = 0; i < user.coins.length; i++){ %>
+                      <p> <%= user.coins[i] %> </p>
+                    <% } %>
+             
+                <% } else { %>
+                    <p>no user.coins</p>
+                <% } %>
+
+            </div>
+        </div>
+    </div>    
     <div class="row">
 
         <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="well">
                 <h3><span class="fa fa-user"></span> Local</h3>
 
