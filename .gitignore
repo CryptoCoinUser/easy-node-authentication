@@ -16,3 +16,5 @@ node_modules
 
 config/database.js
 config/auth.js
+
+scratchpad.js

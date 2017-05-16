@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
         body  { padding-top:80px; word-wrap:break-word; }
+        td, th{padding-right: 2em;}
+        tbody tr:nth-child(odd){background-color: #ccc;}
     </style>
 </head>
 <body>
@@ -19,16 +21,26 @@
         <div class="col-sm-12">
             <div class="well">
                 <h2>Your Crypto Portfolio</h2>
-                <p>table goes here</p>
-
+          
                     <form action="/coin/add" method="post">
                         <div class="form-group">
-                            <label>Coin Abbreviation</label>
-                            <input type="text" class="form-control" name="abrv" required="">
+                            <label>Add A Coin</label>
+                            <select class="coin form-control"  name="abrv" required>
+                              <option class="addCoin">Choose Coin to Add</option>
+                              <option value="BTC">Bitcoin</option>
+                              <option value="ETH">Ethereum</option>
+                              <option value="DASH">DASH</option>
+                              <option value="ZEC">ZCash</option>
+                              <option value="LTC">LiteCoin</option>
+                              <option value="DOGE">DogeCoin</option>
+                            </select>
+
+
+
                         </div>
                         <div class="form-group">
-                            <label>Qty</label>
-                            <input type="number" class="form-control" name="qty" required="">
+                            <label>Qty you have</label>
+                            <input type="number" class="form-control" name="qty"  size="7" value="0" required>
                         </div>
 
                         <button type="submit" class="btn btn-warning btn-lg">Add Coin</button>
@@ -36,10 +48,30 @@
 
                     <hr>
                  <% if (user.coins) { %>
+                 <h3>Coins You Have</h3>
+                 <table>
+                     <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Coin</th>
+                            <th>Qty</th>
+                            <th>Current Price</th>
+                            <th>Total</th>
+                        </tr>
+                     </thead>
+                     <tbody>   
                     <% for (var i = 0; i < user.coins.length; i++){ %>
-                      <p> <%= user.coins[i] %> </p>
+                      <tr> 
+                        <td><%= user.coins[i]._id %></td>
+                        <td><%= user.coins[i].abrv %></td>
+                        <td><%= user.coins[i].qty %></td>
+                        <td>TBA</td>
+                        <td>TBA</td>
+                      </tr>
                     <% } %>
-             
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
                 <% } else { %>
                     <p>no user.coins</p>
                 <% } %>
