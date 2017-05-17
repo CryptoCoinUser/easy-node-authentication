@@ -9,12 +9,17 @@ var userSchema = mongoose.Schema({
         email        : String,
         password     : String
     },
-    coins    : [{
-        abrv    : String, //BTC, DASH, etc.
-        qty     : String
-    }]
+    coins    : {
+	    BTC: Number,
+	    ETH: Number,
+	    DASH: Number,
+	    ZEC: Number,
+	    LTC: Number,
+	    DOGE: Number
+	}
 
 });
+
 
 // generating a hash
 userSchema.methods.generateHash = function(password) {

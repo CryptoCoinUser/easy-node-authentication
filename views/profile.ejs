@@ -52,23 +52,27 @@
                  <table>
                      <thead>
                         <tr>
-                            <th>ID</th>
+                
                             <th>Coin</th>
                             <th>Qty</th>
                             <th>Current Price</th>
                             <th>Total</th>
                         </tr>
                      </thead>
-                     <tbody>   
-                    <% for (var i = 0; i < user.coins.length; i++){ %>
-                      <tr> 
-                        <td><%= user.coins[i]._id %></td>
-                        <td><%= user.coins[i].abrv %></td>
-                        <td><%= user.coins[i].qty %></td>
-                        <td>TBA</td>
-                        <td>TBA</td>
-                      </tr>
-                    <% } %>
+                     <tbody> 
+                       <!-- use a for in loop  -->
+
+
+<% 
+    const justCoins = user.coins;
+    for (coin in justCoins){ %>
+  <tr> 
+    <td><%= coin %></td>
+    <td><%= justCoins[coin] %></td>
+    <td>TBA</td>
+    <td>TBA</td>
+  </tr>
+<% } %>
                     </tbody>
                     <tfoot></tfoot>
                 </table>
