@@ -1,35 +1,38 @@
 var User  = require('../app/models/user');
 
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 module.exports = function(app, passport) {
 
     app.post('/coin/add', isLoggedIn, (req, res) =>  {
-         console.log(req.user);
-         console.log(req.body);
+         // console.log(req.user);
+         // console.log(req.body);
 
         let newCoin = req.body.abrv;
-        //if user alredy has this coin, update qty - later this can be done from table td
-        
-        // if(User.find({'abrv': newCoin})){
-        //     console.log(`already have ${newCoin}`);
-        // } else{
+        User.find({"coins.abrv": newCoin}).count()
+        .exec()
+        .then(findingsCount => {
+            //if user alredy has this coin, update qty - later this can be done from table td
+            if( findingsCount > 0 ){
+                console.log(`${req.user.local.email} already has ${newCoin}`);
+            } else {
+               //if user doesn't have this coin yet
+                User.findByIdAndUpdate(req.user._id, {
+                    $push: {"coins": {"abrv": req.body.abrv, "qty": req.body.qty}}
 
-           //if user doesn't have this coin yet
-            User.findByIdAndUpdate(req.user._id, {
-                $push: {"coins": {"abrv": req.body.abrv, "qty": req.body.qty}}
+                },
+                {upsert: true, new : true},
+                function(err, user){
+                    console.log(user);
 
-            },
-            {upsert: true, new : true},
-            function(err, user){
-                console.log(user);
+                });
 
-            });
+            } //else 
 
-       // } // else
+        })//then
 
-
-
-
-    });
+    }); //app.post
 
 
 };
