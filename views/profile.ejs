@@ -60,21 +60,7 @@
                         </tr>
                      </thead>
                      <tbody> 
-                          <% var majorCoins = ["BTC", "ETH", "DASH", "ZEC", "LTC", "DOGE"];
-                                for( var i = 0; i < majorCoins.length; i++){
-                                if(user.coins[majorCoins[i]]){
-                          %>
-                          <tr> 
-                            <td><%= majorCoins[i] %></td>
-                            <td><%= user.coins[majorCoins[i]] %></td>
-                            <td>TBA</td>
-                            <td>TBA</td>
-                          </tr>
-                          <% 
-                            }
-                          } %>
-                        <!--  
-                        <% Object.keys(user.coins).forEach(function(coin){ %>
+                        <% Object.keys(user.coins.toObject()).forEach(function(coin){ %>
                             <% if (Object.prototype.hasOwnProperty.call(user.coins, coin)) {%>
                           <tr> 
                             <td><%= coin %></td>
@@ -84,7 +70,7 @@
                           </tr>
                           <% } %>
                         <% }); %>
-                        -->
+                       
                     </tbody>
                     <tfoot></tfoot>
                 </table>
@@ -96,7 +82,6 @@
         </div>
     </div>    
     <div class="row">
-
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-12">
             <div class="well">
