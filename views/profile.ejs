@@ -60,19 +60,31 @@
                         </tr>
                      </thead>
                      <tbody> 
-                       <!-- use a for in loop  -->
-
-
-<% 
-    const justCoins = user.coins;
-    for (coin in justCoins){ %>
-  <tr> 
-    <td><%= coin %></td>
-    <td><%= justCoins[coin] %></td>
-    <td>TBA</td>
-    <td>TBA</td>
-  </tr>
-<% } %>
+                          <% var majorCoins = ["BTC", "ETH", "DASH", "ZEC", "LTC", "DOGE"];
+                                for( var i = 0; i < majorCoins.length; i++){
+                                if(user.coins[majorCoins[i]]){
+                          %>
+                          <tr> 
+                            <td><%= majorCoins[i] %></td>
+                            <td><%= user.coins[majorCoins[i]] %></td>
+                            <td>TBA</td>
+                            <td>TBA</td>
+                          </tr>
+                          <% 
+                            }
+                          } %>
+                        <!--  
+                        <% Object.keys(user.coins).forEach(function(coin){ %>
+                            <% if (Object.prototype.hasOwnProperty.call(user.coins, coin)) {%>
+                          <tr> 
+                            <td><%= coin %></td>
+                            <td><%= user.coins[coin] %></td>
+                            <td>TBA</td>
+                            <td>TBA</td>
+                          </tr>
+                          <% } %>
+                        <% }); %>
+                        -->
                     </tbody>
                     <tfoot></tfoot>
                 </table>
