@@ -17,10 +17,10 @@ module.exports = function(app, passport) {
             function(err, user) {
                 previousQty = user.coins[newCoin];
                 if( previousQty > 0 ){
-                console.log(`${req.user.local.email} already has ${previousQty} of ${newCoin}`);
-                //update qty - later this can be done from table td
-                User.updateOne({ _id : req.user._id},
-                    { $set: {coinsDotNewCoin: req.body.qty}}
+                    console.log(`${req.user.local.email} already has ${previousQty} ${newCoin}, updating qty with ${coinsDotNewCoin} : ${req.body.qty}`);
+                    //update qty - later this can be done from table td
+                    User.findByIdAndUpdate(req.user._id,
+                        { $set: {coinsDotNewCoin: req.body.qty}}
                     )
                 } else {
                //if user doesn't have this coin yet
