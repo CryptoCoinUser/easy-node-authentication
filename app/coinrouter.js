@@ -6,46 +6,21 @@ mongoose.Promise = global.Promise;
 module.exports = function(app, passport) {
 
     app.post('/coin/add', isLoggedIn, (req, res) =>  {
-         // console.log(req.user);
-         // console.log(req.body);
 
         const newCoin = req.body.abrv;
         const coinsDotNewCoin = `coins.${newCoin}`;
-        // User.where({coinsDotNewCoin}).ne(null)
-        let previousQty
+ 
         User.findById(req.user._id, 
-            function(err, user) {
-                previousQty = user.coins[newCoin];
-                if( previousQty > 0 ){
-                    console.log(`${req.user.local.email} already has ${previousQty} ${newCoin}, updating qty with ${coinsDotNewCoin} : ${req.body.qty}`);
-                    //update qty - later this can be done from table td
-                    User.findByIdAndUpdate(req.user._id,
-                        { $set: {coinsDotNewCoin: req.body.qty}}
-                    )
-                } else {
-               //if user doesn't have this coin yet
-              
- 
-                User.findById(req.user._id, 
-                function(err, user) {
-                    user.coins[newCoin] = req.body.qty;
-                    user.markModified('coins'); 
-                    user.save(function(err, savedUser) {
-                        console.log("post Updated User", savedUser);
-                    });
-                    
-                });
-
-                } //else 
-            });//User.findById
- 
-        // .exec()
-        // .then(newCoinQty => {
-        //     //if user alredy has this coin, 
+        function(err, user) {
+            user.coins[newCoin] = req.body.qty;
+            user.markModified('coins'); 
+            user.save(function(err, savedUser) {
+                console.log("post Updated User", savedUser);
+                res.json(savedUser.coins);
+            });
             
-
-        // })//then
-
+        });
+        
     }); //app.post
 
 // { $set: {coinsDotNewCoin: req.body.qty}  

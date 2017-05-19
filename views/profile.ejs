@@ -22,7 +22,7 @@
             <div class="well">
                 <h2>Your Crypto Portfolio</h2>
           
-                    <form action="/coin/add" method="post">
+                    <form id="addForm">
                         <div class="form-group">
                             <label>Add A Coin</label>
                             <select class="coin form-control"  name="abrv" required>
@@ -34,8 +34,6 @@
                               <option value="LTC">LiteCoin</option>
                               <option value="DOGE">DogeCoin</option>
                             </select>
-
-
 
                         </div>
                         <div class="form-group">
@@ -52,22 +50,20 @@
                  <table>
                      <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Coin</th>
                             <th>Qty</th>
                             <th>Current Price</th>
                             <th>Total</th>
                         </tr>
                      </thead>
-                     <tbody> 
+                     <tbody class='coin-table'> 
                         <% Object.keys(user.coins.toObject()).forEach(function(coin){ %>
                             <% if (Object.prototype.hasOwnProperty.call(user.coins, coin)) {%>
                           <tr>
-                            <td><%= user.coins[coin]._id %></td> 
-                            <td><%= coin %></td>
-                            <td><%= user.coins[coin] %></td>
-                            <td>TBA</td>
-                            <td>TBA</td>
+                            <td class='abrv'><%= coin %></td>
+                            <td class='qty'><%= user.coins[coin] %></td>
+                            <td class='price'>TBA</td>
+                            <td class='total'>TBA</td>
                           </tr>
                           <% } %>
                         <% }); %>
@@ -109,5 +105,7 @@
     </div>
 
 </div>
+<!-- insert a script partial -->
+<%- include scripts.ejs %>
 </body>
 </html>
