@@ -52,7 +52,7 @@
                  <table>
                      <thead>
                         <tr>
-                
+                            <th>ID</th>
                             <th>Coin</th>
                             <th>Qty</th>
                             <th>Current Price</th>
@@ -62,7 +62,8 @@
                      <tbody> 
                         <% Object.keys(user.coins.toObject()).forEach(function(coin){ %>
                             <% if (Object.prototype.hasOwnProperty.call(user.coins, coin)) {%>
-                          <tr> 
+                          <tr>
+                            <td><%= user.coins[coin]._id %></td> 
                             <td><%= coin %></td>
                             <td><%= user.coins[coin] %></td>
                             <td>TBA</td>

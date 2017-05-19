@@ -9,42 +9,48 @@ module.exports = function(app, passport) {
          // console.log(req.user);
          // console.log(req.body);
 
-        let newCoin = req.body.abrv;
-        // User.find({"coins.abrv": newCoin}).count()
-        // .exec()
-        // .then(findingsCount => {
-        //     //if user alredy has this coin, 
-        //     if( findingsCount > 0 ){
-        //         console.log(`${req.user.local.email} already has ${newCoin}`);
-        //         //update qty - later this can be done from table td
-
-
-
-        //     } else {
+        const newCoin = req.body.abrv;
+        const coinsDotNewCoin = `coins.${newCoin}`;
+        // User.where({coinsDotNewCoin}).ne(null)
+        let previousQty
+        User.findById(req.user._id, 
+            function(err, user) {
+                previousQty = user.coins[newCoin];
+                if( previousQty > 0 ){
+                console.log(`${req.user.local.email} already has ${previousQty} of ${newCoin}`);
+                //update qty - later this can be done from table td
+                // user.updateOne({ _id : req.user._id},
+                //     { $set: {coinsDotNewCoin: req.body.qty}}
+                //     )
+                } else {
                //if user doesn't have this coin yet
-               const str = `coins.${newCoin}`
-               console.log("STR", str);
+              
+ 
                 User.findById(req.user._id, 
                 function(err, user) {
                     user.coins[newCoin] = req.body.qty;
-                    user.markModified('coins');
-                    
+                    user.markModified('coins'); 
                     user.save(function(err, savedUser) {
                         console.log("post Updated User", savedUser);
                     });
                     
                 });
 
-        //     } //else 
+                } //else 
+            });//User.findById
+ 
+        // .exec()
+        // .then(newCoinQty => {
+        //     //if user alredy has this coin, 
+            
 
         // })//then
 
     }); //app.post
 
-// {
-                //     $set: {str: req.body.qty}  
-                // },
-                // {upsert: true, new : true},
+// { $set: {coinsDotNewCoin: req.body.qty}  
+//                 },
+//                 {upsert: true, new : true},
 
 };
 // route middleware to ensure user is logged in
