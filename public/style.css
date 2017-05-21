@@ -1,0 +1,4 @@
+/*style.css*/
+body  { padding-top:80px; word-wrap:break-word; }
+td, th{padding-right: 2em;}
+tbody tr:nth-child(odd){background-color: #ccc;}
