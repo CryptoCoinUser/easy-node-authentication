@@ -36,8 +36,5 @@ $('form#addForm').on('submit', function(event){
 		// append to the dom		
 		$('tbody.coin-table').html(toAppend); 
 	});
-
-	
-	
 });
 	
