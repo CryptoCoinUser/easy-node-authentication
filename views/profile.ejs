@@ -15,7 +15,7 @@
         <div class="col-sm-12">
             <div class="well">
                 <h2>Your Crypto Portfolio</h2>
-          
+                    <a href="#" class="refresh">Refresh Prices</a>
                     <form id="addForm">
                         <div class="form-group">
                             <label>Add A Coin</label>
@@ -39,9 +39,7 @@
                     </form>
 
                     <hr>
-                <% function getCoinPrice(coin, currency){
-                        return 1000;
-                    }    %>
+
                  <% if (user.coins) { %>
                  <h3>Coins You Have</h3>
                  <table>
@@ -49,24 +47,37 @@
                         <tr>
                             <th>Coin</th>
                             <th>Qty</th>
-                            <th>Current Price</th>
+                            <th>USD</th>
+                            <th>EUR</th>
+                            <th>CNY</th>
                             <th>Total</th>
                         </tr>
                      </thead>
                      <tbody class='coin-table'> 
                         <% Object.keys(user.coins.toObject()).forEach(function(coin){ %>
                             <% if (Object.prototype.hasOwnProperty.call(user.coins, coin)) {%>
-                          <tr>
+                          <tr class=<%= coin %>>
                             <td class='abrv'><%= coin %></td>
                             <td class='qty'><%= user.coins[coin] %></td>
-                            <td class='price'><%= getCoinPrice(coin, 'USD') %></td>
+                            <td class='usd'>USD</td>
+                            <td class='eur'>EUR</td>
+                            <td class='cny'>CNY</td>
                             <td class='total'>TBA</td>
                           </tr>
                           <% } %>
                         <% }); %>
                        
                     </tbody>
-                    <tfoot></tfoot>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
                 <% } else { %>
                     <p>no user.coins</p>

@@ -1,4 +1,5 @@
 var User  = require('../app/models/user');
+var Price  = require('../app/models/price');
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -22,6 +23,28 @@ module.exports = function(app, passport) {
         });
         
     });  
+
+    app.get('/coin/prices', isLoggedIn, (req, res) => {
+        var latestPrices = new Price;
+
+        latestPrices.lookupPricesForAllCoins(function(prices){ 
+            prices = JSON.parse(prices);
+
+            for (coin in prices){
+                // console.log(coin);
+                // console.log(prices[coin])
+                latestPrices[coin].lastPrice = prices[coin];
+                latestPrices[coin].lastPriceDate = new Date();
+            }
+
+            latestPrices.save(function(err, savedPrices){
+                 if (err) res.send(err);
+                 if (savedPrices) res.send(savedPrices);
+            });
+         
+       });
+   
+    });
 
 };
 // route middleware to ensure user is logged in
