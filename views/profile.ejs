@@ -53,7 +53,7 @@
                             <th>Total</th>
                         </tr>
                      </thead>
-                     <tbody class='coin-table'> 
+                     <tbody class='coinsYouHave'> 
                         <% Object.keys(user.coins.toObject()).forEach(function(coin){ %>
                             <% if (Object.prototype.hasOwnProperty.call(user.coins, coin)) {%>
                           <tr class=<%= coin %>>

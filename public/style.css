@@ -4,4 +4,4 @@ td, th{padding-right: 2em; font-size: 2em;}
 tbody tr:nth-child(odd){background-color: #ccc;}
 a.btn[href="/login"],
 button[type="submit"]{width:80%; height: 200px;}
-a.refresh{font-size: 5em;}
+a.refresh{font-size: 5em; display: block; text-align: center;}

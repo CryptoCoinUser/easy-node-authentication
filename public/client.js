@@ -39,7 +39,7 @@ $('form#addForm').on('submit', function(event){
 			return $domNode
 		})
 		// append to the dom		
-		$('tbody.coin-table').html(toAppend); 
+		$('tbody.coinsYouHave').html(toAppend); 
 	});
 
 });
@@ -49,10 +49,30 @@ $('a.refresh').on("click", function(event){
 	$.ajax({
 		url: "/coin/prices",
 	})
-	.done(function( coinsApiResponse ) {
-		console.log('API Response');
-		console.log(coinsApiResponse);
+	.done(function( theDbPriceObject ) {
+
+      let clonedTable = $('tbody.coinsYouHave').clone();
+
+      Object.keys(theDbPriceObject).map(coin => {
+        //console.log(theDbPriceObject[coin]);
+        var coinOrOtherObject = theDbPriceObject[coin];
+
+          if(coinOrOtherObject.lastPrice){
+
+            Object.keys(coinOrOtherObject.lastPrice).map(currency => {
+          
+              var price = coinOrOtherObject.lastPrice[currency];
+          
+              var tdSelectors = `tr.${coin} td.${currency.toLowerCase()}`
+        
+              $(clonedTable).find(tdSelectors).html(price);
+            });
+          }
+         
+    })
+ 
       // clone table or tbody and then put back
+      $('tbody.coinsYouHave').replaceWith(clonedTable);
 
       // put prices on pageload.
 
