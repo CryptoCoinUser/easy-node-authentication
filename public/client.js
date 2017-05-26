@@ -15,7 +15,7 @@ $('form#addForm').on('submit', function(event){
 
 	// get our values from our form
 	const abrv = $('form#addForm').find('select.coin option:selected').val(); 
-	if(abrv === 'Choose Coin to Add') return;
+	if(abrv === 'Choose Coin to Add or Update') return;
 	
 	const qty = $('form#addForm').find('input[name="qty"]').val();
 
@@ -45,31 +45,56 @@ $('form#addForm').on('submit', function(event){
 });
 
 // on load
-fetchSaveAndShowPrices();
+fetchSaveShowAndTotalPrices();
 
 
 $('a.refresh').on("click", function(event){
 	event.preventDefault();
-  
-  fetchSaveAndShowPrices();
-
-  // tally total
-
-  // tally grand total
-
-
+  fetchSaveShowAndTotalPrices();
 });
 
-function fetchSaveAndShowPrices(){
+function fetchSaveShowAndTotalPrices(){
+  let clonedTable = $('tbody.coinsYouHave').clone();
+
+  let getPrices = new Promise((resolve, reject) => {
+    fetchAndSavePrices(clonedTable, resolve, reject);
+  })
+
+  // tally total & grandtotal
+  .then(function (clonedTable){
+      var grandTotal = 0;
+      //console.log('getPrices.then called');
+      $(clonedTable).find('tr').each(function(){
+        
+        let qty = Number($(this).find('td.qty').text());
+        //console.log(`qty is ${qty}`);
+        
+        let price =  $(this).find('td.usd').text();
+        //console.log(`price is ${price}`);
+        
+        let total = (qty * price);
+        grandTotal += total;
+        //console.log(`total is ${total}`);    
+
+        $(this).find('td.total').text(total.toFixed(2));    
+      });
+      $('td.grandTotal').text(grandTotal.toFixed(2));
+    }
+  )
+  // save to DOM
+  $('tbody.coinsYouHave').replaceWith(clonedTable);
+
+}
+
+function fetchAndSavePrices(clonedTable, resolve, reject){
+  //console.log('fetchAndSavePrices called');
   $.ajax({
     url: "/coin/prices",
   })
   .done(function( theDbPriceObject ) {
 
-      let clonedTable = $('tbody.coinsYouHave').clone();
-
       Object.keys(theDbPriceObject).map(coin => {
-        //console.log(theDbPriceObject[coin]);
+
         var coinOrOtherObject = theDbPriceObject[coin];
 
           if(coinOrOtherObject.lastPrice){
@@ -85,16 +110,13 @@ function fetchSaveAndShowPrices(){
           }
          
     })
- 
-    // clone table or tbody and then put back
-    $('tbody.coinsYouHave').replaceWith(clonedTable);
 
-      // put prices on pageload.
+    resolve (clonedTable);
 
   });
 }
 	
-
+  
 
 
 

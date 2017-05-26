@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label>Add A Coin</label>
                             <select class="coin form-control"  name="abrv" required>
-                              <option class="addCoin">Choose Coin to Add</option>
+                              <option class="addCoin">Choose Coin to Add or Update</option>
                               <option value="BTC">Bitcoin</option>
                               <option value="ETH">Ethereum</option>
                               <option value="DASH">DASH</option>
@@ -35,7 +35,7 @@
                             <input type="number" class="form-control" name="qty"  size="7" value="0" required>
                         </div>
 
-                        <button type="submit" class="btn btn-warning btn-lg">Add Coin</button>
+                        <button type="submit" class="btn btn-warning btn-lg">Add or Update Coin</button>
                     </form>
 
                     <hr>
@@ -47,10 +47,10 @@
                         <tr>
                             <th>Coin</th>
                             <th>Qty</th>
-                            <th>USD</th>
-                            <th>EUR</th>
-                            <th>CNY</th>
-                            <th>Total</th>
+                            <th>USD price</th>
+                            <th>EUR price</th>
+                            <th>CNY price</th>
+                            <th>USD Total</th>
                         </tr>
                      </thead>
                      <tbody class='coinsYouHave'> 
@@ -59,9 +59,9 @@
                           <tr class=<%= coin %>>
                             <td class='abrv'><%= coin %></td>
                             <td class='qty'><%= user.coins[coin] %></td>
-                            <td class='usd'>USD</td>
-                            <td class='eur'>EUR</td>
-                            <td class='cny'>CNY</td>
+                            <td class='usd'>USD price placeholder</td>
+                            <td class='eur'>EUR price placeholder</td>
+                            <td class='cny'>CNY price placeholder</td>
                             <td class='total'>TBA</td>
                           </tr>
                           <% } %>
@@ -74,8 +74,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>Grand Total (USD):</td>
+                            <td class="grandTotal"></td>
                         </tr>
                     </tfoot>
                 </table>
