@@ -50,7 +50,14 @@ fetchSaveAndShowPrices();
 
 $('a.refresh').on("click", function(event){
 	event.preventDefault();
+  
   fetchSaveAndShowPrices();
+
+  // tally total
+
+  // tally grand total
+
+
 });
 
 function fetchSaveAndShowPrices(){

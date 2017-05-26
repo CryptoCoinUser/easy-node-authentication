@@ -37,6 +37,15 @@ module.exports = function(app, passport) {
                 latestPrices[coin].lastPriceDate = new Date();
             }
 
+            //if already have prices, update the document, 
+                //check if db has one item
+
+                // latestPrices.markModifed(for each coin, .lastPrice + lastPriceDate???);
+
+            //else
+            mongoose.connection.collections['prices'].drop( function(err) {
+                console.log('prices collection dropped');
+            });
             latestPrices.save(function(err, savedPrices){
                  if (err) res.send(err);
                  if (savedPrices) res.send(savedPrices);
