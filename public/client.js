@@ -44,12 +44,20 @@ $('form#addForm').on('submit', function(event){
 
 });
 
+// on load
+fetchSaveAndShowPrices();
+
+
 $('a.refresh').on("click", function(event){
 	event.preventDefault();
-	$.ajax({
-		url: "/coin/prices",
-	})
-	.done(function( theDbPriceObject ) {
+  fetchSaveAndShowPrices();
+});
+
+function fetchSaveAndShowPrices(){
+  $.ajax({
+    url: "/coin/prices",
+  })
+  .done(function( theDbPriceObject ) {
 
       let clonedTable = $('tbody.coinsYouHave').clone();
 
@@ -71,13 +79,13 @@ $('a.refresh').on("click", function(event){
          
     })
  
-      // clone table or tbody and then put back
-      $('tbody.coinsYouHave').replaceWith(clonedTable);
+    // clone table or tbody and then put back
+    $('tbody.coinsYouHave').replaceWith(clonedTable);
 
       // put prices on pageload.
 
-	});
-});
+  });
+}
 	
 
 
