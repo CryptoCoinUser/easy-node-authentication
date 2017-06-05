@@ -1,18 +1,52 @@
 let tableRow = `<tr>
 	              <td class='abrv'></td>
 	              <td class='qty'></td>
-	              <td class='usd'>USD</td>
-                <td class='eur'>EUR</td>
-                <td class='cny'>CNY</td>
+	              <td class='usd'>USD price placeholder</td>
+                <td class='eur'>EUR price placeholder</td>
+                <td class='cny'>CNY price placeholder</td>
 	              <td class='total'>TBA</td>
 	            </tr>`
+
+function paintTheTable(data){
+  const coins = data.savedUser.coins;
+
+  var grandTotal = 0;
+  const toAppend = Object.keys(coins).reverse().map(coin => {
+    let $domNode = $(tableRow);
+    $domNode.find('.abrv').text(coin);
+    $domNode.find('.qty').text(coins[coin]);
+
+    $domNode.find('.usd').text(data.savedPrices[coin].lastPrice.USD);
+    $domNode.find('.eur').text(data.savedPrices[coin].lastPrice.EUR);
+    $domNode.find('.cny').text(data.savedPrices[coin].lastPrice.CNY);
+
+    var usdTotal = Number(coins[coin]) * Number(data.savedPrices[coin].lastPrice.USD);
+    grandTotal += usdTotal;
+    $domNode.find('.total').text(usdTotal);
+    //$domNode.find('.price').text(fakeCoinPrice(coin, 'USD'));
+    return $domNode
+  })
+  $('td.grandTotal').text(grandTotal.toFixed(2));
+  // append to the dom    
+  $('tbody.coinsYouHave').html(toAppend); 
+}
+
+
+function fetchSaveShowAndTotalPrices(){
+  $.ajax({
+    url: "/coin/prices",
+  })
+  .then(function(data){
+    paintTheTable(data);
+  });
+}
+
 
 // button event listener
 $('form#addForm').on('submit', function(event){
 	// prevent default
 	event.preventDefault();
-	console.log("form submitted, default prevented");
-
+	
 	// get our values from our form
 	const abrv = $('form#addForm').find('select.coin option:selected').val(); 
 	if(abrv === 'Choose Coin to Add or Update') return;
@@ -26,95 +60,21 @@ $('form#addForm').on('submit', function(event){
 		data: { abrv, qty }
 	})
 	// succcess callback - update the DOM
-	.done(function( coins ) {
-
-		// get prices, as done in https://github.com/CryptoCoinUser/cryptoCompareAPI/blob/master/cryptocompare.js
-		//lookupAllPricesAndDisplayThemInRows();
-
-		const toAppend = Object.keys(coins).map(coin => {
-			let $domNode = $(tableRow);
-			$domNode.find('.abrv').text(coin);
-			$domNode.find('.qty').text(coins[coin]);
-			//$domNode.find('.price').text(fakeCoinPrice(coin, 'USD'));
-			return $domNode
-		})
-		// append to the dom		
-		$('tbody.coinsYouHave').html(toAppend); 
+	.done(function( data ) {
+    paintTheTable(data);
 	});
 
 });
 
+$('a.refresh').on("click", function(event){
+	event.preventDefault();
+  fetchSaveShowAndTotalPrices()
+});
+
+
 // on load
 fetchSaveShowAndTotalPrices();
 
-
-$('a.refresh').on("click", function(event){
-	event.preventDefault();
-  fetchSaveShowAndTotalPrices();
-});
-
-function fetchSaveShowAndTotalPrices(){
-  let clonedTable = $('tbody.coinsYouHave').clone();
-
-  let getPrices = new Promise((resolve, reject) => {
-    fetchAndSavePrices(clonedTable, resolve, reject);
-  })
-
-  // tally total & grandtotal
-  .then(function (clonedTable){
-      var grandTotal = 0;
-      //console.log('getPrices.then called');
-      $(clonedTable).find('tr').each(function(){
-        
-        let qty = Number($(this).find('td.qty').text());
-        //console.log(`qty is ${qty}`);
-        
-        let price =  $(this).find('td.usd').text();
-        //console.log(`price is ${price}`);
-        
-        let total = (qty * price);
-        grandTotal += total;
-        //console.log(`total is ${total}`);    
-
-        $(this).find('td.total').text(total.toFixed(2));    
-      });
-      $('td.grandTotal').text(grandTotal.toFixed(2));
-    }
-  )
-  // save to DOM
-  $('tbody.coinsYouHave').replaceWith(clonedTable);
-
-}
-
-function fetchAndSavePrices(clonedTable, resolve, reject){
-  //console.log('fetchAndSavePrices called');
-  $.ajax({
-    url: "/coin/prices",
-  })
-  .done(function( theDbPriceObject ) {
-
-      Object.keys(theDbPriceObject).map(coin => {
-
-        var coinOrOtherObject = theDbPriceObject[coin];
-
-          if(coinOrOtherObject.lastPrice){
-
-            Object.keys(coinOrOtherObject.lastPrice).map(currency => {
-          
-              var price = coinOrOtherObject.lastPrice[currency];
-          
-              var tdSelectors = `tr.${coin} td.${currency.toLowerCase()}`
-        
-              $(clonedTable).find(tdSelectors).html(price);
-            });
-          }
-         
-    })
-
-    resolve (clonedTable);
-
-  });
-}
 	
   
 

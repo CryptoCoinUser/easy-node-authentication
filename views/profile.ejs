@@ -42,6 +42,20 @@
 
                  <% if (user.coins) { %>
                  <h3>Coins You Have</h3>
+
+                 <form id="chooseCurrency">
+                    <div class="form-group">
+                        <label>Choose Currency</label>
+                        <select class="cur form-control"  name="cur" required>
+                          <option value="usd" selected>USD</option>
+                          <option value="eur">EUR</option>
+                          <option value="cny">CNY</option>
+                        </select>
+
+                    </div>
+                    <button type="submit" class="btn btn-warning btn-lg">Change Currency</button>
+                </form>
+
                  <table>
                      <thead>
                         <tr>

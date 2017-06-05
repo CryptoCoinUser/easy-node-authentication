@@ -16,7 +16,8 @@ var userSchema = mongoose.Schema({
 	    ZEC: Number,
 	    LTC: Number,
 	    DOGE: Number
-	}
+	},
+	cur : String // currency 3-letter abr.; defaults to USD
 
 });
 
