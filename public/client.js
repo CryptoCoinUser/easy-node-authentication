@@ -56,11 +56,11 @@ $('form#chooseCurrency').on('submit', function(event){
     console.log('AJAX cur is');
     console.log(curString);
     // select option in select.cur
-    $('select.cur option:selected').prop("selected"); // remove selected property
-    const newCurOptionSelector = `select.cur option.${curString}`;
-    console.log(newCurOptionSelector);
-    $('newCurOptionSelector').prop("selected");
-    $('.yourCurrencyIs').text(curString);
+    // $('select.cur option:selected').prop("selected"); // remove selected property
+    // const newCurOptionSelector = `select.cur option.${curString}`;
+    // console.log(newCurOptionSelector);
+    // $('newCurOptionSelector').prop("selected");
+    $('span.yourCurrencyIs').text(curString);
 
   });
 

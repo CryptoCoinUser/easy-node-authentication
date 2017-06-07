@@ -5,4 +5,8 @@ tbody tr:nth-child(odd){background-color: #ccc;}
 a.btn[href="/login"],
 button[type="submit"]{width:80%; height: 200px;}
 a.refresh{font-size: 5em; display: block; text-align: center;}
-span.yourCurrencyIs{text-transform: uppercase;}
+
+select.yourCurrencyIs,
+span.yourCurrencyIs{
+	text-transform: uppercase;
+ }
