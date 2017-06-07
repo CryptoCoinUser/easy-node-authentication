@@ -47,12 +47,17 @@
                     <div class="form-group">
                         <label>Choose Currency</label>
                         <select class="cur form-control"  name="cur" required>
-                          <option value="usd" selected>USD</option>
-                          <option value="eur">EUR</option>
-                          <option value="cny">CNY</option>
+                          <option value="usd" <% if (user.cur === 'usd') { %> selected <%}%>   >USD</option>
+                          <option value="eur" <% if (user.cur === 'eur') { %> selected <%}%>   >EUR</option>
+                          <option value="cny" <% if (user.cur === 'cny') { %> selected <%}%>   >CNY</option>
                         </select>
 
                     </div>
+
+
+                    <h1>Your currency is <span class="yourCurrencyIs"><%= user.cur %><span></h1>
+
+
                     <button type="submit" class="btn btn-warning btn-lg">Change Currency</button>
                 </form>
 

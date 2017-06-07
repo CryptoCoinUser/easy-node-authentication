@@ -42,6 +42,30 @@ function fetchSaveShowAndTotalPrices(){
 }
 
 
+$('form#chooseCurrency').on('submit', function(event){
+  event.preventDefault();
+  const cur = $('form#chooseCurrency').find('select.cur option:selected').val();
+  console.log(`Cur is ${cur}`);
+
+  $.ajax({
+    method: "POST",
+    url: "/user/cur",
+    data: { cur }
+  })
+  .done(function( curString ) {
+    console.log('AJAX cur is');
+    console.log(curString);
+    // select option in select.cur
+    $('select.cur option:selected').prop("selected"); // remove selected property
+    const newCurOptionSelector = `select.cur option.${curString}`;
+    console.log(newCurOptionSelector);
+    $('newCurOptionSelector').prop("selected");
+    $('.yourCurrencyIs').text(curString);
+
+  });
+
+})
+
 // button event listener
 $('form#addForm').on('submit', function(event){
 	// prevent default

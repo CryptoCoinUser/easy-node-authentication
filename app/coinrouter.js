@@ -60,6 +60,25 @@ module.exports = function(app, passport) {
         
     });  
 
+    app.post('/user/cur', isLoggedIn, (req, res) => {
+        User.findById(req.user._id)
+        .exec()
+        .then(function(user) {
+           console.log('coinrouter user/cur req.body.cur is');
+           console.log(req.body.cur);
+
+           user.cur = req.body.cur;
+           user.markModified('cur');
+           user.save(function(err, savedUser){
+                console.log('currency updated', savedUser);
+           }); 
+
+           res.send(req.body.cur); 
+         
+        });
+            
+    })
+
     app.get('/coin/prices', isLoggedIn, (req, res) => {
         User.findById(req.user._id)
         .exec()
