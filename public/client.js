@@ -79,14 +79,14 @@ $('form#addForm').on('submit', function(event){
 	})
 	// succcess callback - update the DOM
 	.done(function( data ) {
-    paintTheTable(data);
+    fetchSaveShowAndTotalPrices();
 	});
 
 });
 
 $('a.refresh').on("click", function(event){
 	event.preventDefault();
-  fetchSaveShowAndTotalPrices()
+  fetchSaveShowAndTotalPrices();
 });
 
 
