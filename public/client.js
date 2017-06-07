@@ -1,11 +1,11 @@
-let tableRow = `<tr>
-	              <td class='abrv'></td>
-	              <td class='qty'></td>
-	              <td class='usd'>USD price placeholder</td>
-                <td class='eur'>EUR price placeholder</td>
-                <td class='cny'>CNY price placeholder</td>
-	              <td class='total'>TBA</td>
-	            </tr>`
+let tableRow =`<tr>
+<td class='abrv'></td>
+<td class='qty'></td>
+<td class='usd'>USD price placeholder</td>
+<td class='eur'>EUR price placeholder</td>
+<td class='cny'>CNY price placeholder</td>
+<td class='total'>TBA</td>
+</tr>`
 
 function paintTheTable(data){
   const coins = data.savedUser.coins;
@@ -61,6 +61,13 @@ $('form#chooseCurrency').on('submit', function(event){
     // console.log(newCurOptionSelector);
     // $('newCurOptionSelector').prop("selected");
     $('span.yourCurrencyIs').text(curString);
+
+    // remove other currencies from tableRow
+    const curTd = `<td class='${curString}'>${curString} price placeholder</td>`;
+    console.log(curTd);
+    $(tableRow).find('.total').text(curTd);
+    $(tableRow).append('hello world');
+    console.log(tableRow);
 
   });
 
