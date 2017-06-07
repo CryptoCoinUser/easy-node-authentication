@@ -1,13 +1,14 @@
 let tableRow =`<tr>
 <td class='abrv'></td>
 <td class='qty'></td>
-<td class='usd'>USD price placeholder</td>
-<td class='eur'>EUR price placeholder</td>
-<td class='cny'>CNY price placeholder</td>
+<td class='cur'>some currency price placeholder</td>
 <td class='total'>TBA</td>
 </tr>`
 
 function paintTheTable(data){
+  console.log('data.savedUser.cur');
+  console.log(data.savedUser.cur);
+  const cur = data.savedUser.cur.toUpperCase();
   const coins = data.savedUser.coins;
 
   var grandTotal = 0;
@@ -16,13 +17,11 @@ function paintTheTable(data){
     $domNode.find('.abrv').text(coin);
     $domNode.find('.qty').text(coins[coin]);
 
-    $domNode.find('.usd').text(data.savedPrices[coin].lastPrice.USD);
-    $domNode.find('.eur').text(data.savedPrices[coin].lastPrice.EUR);
-    $domNode.find('.cny').text(data.savedPrices[coin].lastPrice.CNY);
+    $domNode.find('.cur').text(data.savedPrices[coin].lastPrice[cur]);
 
-    var usdTotal = Number(coins[coin]) * Number(data.savedPrices[coin].lastPrice.USD);
-    grandTotal += usdTotal;
-    $domNode.find('.total').text(usdTotal);
+    var total = Number(coins[coin]) * Number(data.savedPrices[coin].lastPrice[cur]);
+    grandTotal += total;
+    $domNode.find('.total').text(total);
     //$domNode.find('.price').text(fakeCoinPrice(coin, 'USD'));
     return $domNode
   })
@@ -38,14 +37,16 @@ function fetchSaveShowAndTotalPrices(){
   })
   .then(function(data){
     paintTheTable(data);
-  });
+  })
+  .fail(function(err){
+    console.log(err);
+  })
 }
 
 
 $('form#chooseCurrency').on('submit', function(event){
   event.preventDefault();
   const cur = $('form#chooseCurrency').find('select.cur option:selected').val();
-  console.log(`Cur is ${cur}`);
 
   $.ajax({
     method: "POST",
@@ -53,22 +54,8 @@ $('form#chooseCurrency').on('submit', function(event){
     data: { cur }
   })
   .done(function( curString ) {
-    console.log('AJAX cur is');
-    console.log(curString);
-    // select option in select.cur
-    // $('select.cur option:selected').prop("selected"); // remove selected property
-    // const newCurOptionSelector = `select.cur option.${curString}`;
-    // console.log(newCurOptionSelector);
-    // $('newCurOptionSelector').prop("selected");
+    fetchSaveShowAndTotalPrices();
     $('span.yourCurrencyIs').text(curString);
-
-    // remove other currencies from tableRow
-    const curTd = `<td class='${curString}'>${curString} price placeholder</td>`;
-    console.log(curTd);
-    $(tableRow).find('.total').text(curTd);
-    $(tableRow).append('hello world');
-    console.log(tableRow);
-
   });
 
 })

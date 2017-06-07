@@ -10,3 +10,5 @@ select.yourCurrencyIs,
 span.yourCurrencyIs{
 	text-transform: uppercase;
  }
+
+ table.prices {width:100%;}

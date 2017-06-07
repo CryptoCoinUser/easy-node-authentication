@@ -75,39 +75,33 @@
                     <button type="submit" class="btn btn-warning btn-lg">Change Currency</button>
                 </form>
 
-                 <table>
+                 <table class = "prices">
                      <thead>
                         <tr>
                             <th>Coin</th>
                             <th>Qty</th>
-                            <th>USD price</th>
-                            <th>EUR price</th>
-                            <th>CNY price</th>
-                            <th>USD Total</th>
+                            <th><span class="yourCurrencyIs"><%= user.cur %><span> Price</th>
+                            <th>Total</th>
                         </tr>
                      </thead>
                      <tbody class='coinsYouHave'> 
-                        <% Object.keys(user.coins.toObject()).forEach(function(coin){ %>
+                        <!-- <% Object.keys(user.coins.toObject()).forEach(function(coin){ %>
                             <% if (Object.prototype.hasOwnProperty.call(user.coins, coin)) {%>
                           <tr class=<%= coin %>>
                             <td class='abrv'><%= coin %></td>
                             <td class='qty'><%= user.coins[coin] %></td>
-                            <td class='usd'>USD price placeholder</td>
-                            <td class='eur'>EUR price placeholder</td>
-                            <td class='cny'>CNY price placeholder</td>
+                            <td class='cur'><%= user.cur %> price placeholder</td>
                             <td class='total'>TBA</td>
                           </tr>
                           <% } %>
-                        <% }); %>
+                        <% }); %> -->
                        
                     </tbody>
                     <tfoot>
                         <tr>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Grand Total (USD):</td>
+                            <td>Grand Total:</td>
                             <td class="grandTotal"></td>
                         </tr>
                     </tfoot>
