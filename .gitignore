@@ -1,4 +1,5 @@
 .env
+dump/
 lib-cov
 *.seed
 *.log
@@ -19,3 +20,4 @@ config/database.js
 config/auth.js
 
 scratchpad.js
+.DS_Store
