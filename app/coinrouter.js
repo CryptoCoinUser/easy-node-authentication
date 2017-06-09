@@ -9,7 +9,6 @@ module.exports = function(app, passport) {
     app.post('/coin/add', isLoggedIn, (req, res) =>  {
 
         const newCoin = req.body.abrv;
-        const coinsDotNewCoin = `coins.${newCoin}`;
  
         User.findById(req.user._id)
         .exec()
@@ -17,27 +16,17 @@ module.exports = function(app, passport) {
             user.coins[newCoin] = req.body.qty;
             user.markModified('coins'); 
             user.save(function(err, savedUser) {
-                console.log("post Updated User", savedUser);
-                //res.json(savedUser.coins);
-                //return savedUser;
+                if (err) res.send(err);
                 var latestPrices = new Price;
 
                 latestPrices.lookupPricesForAllCoins(function(prices){ 
                     prices = JSON.parse(prices);
 
                     for (coin in prices){
-                        // console.log(coin);
-                        // console.log(prices[coin])
                         latestPrices[coin].lastPrice = prices[coin];
                         latestPrices[coin].lastPriceDate = new Date();
                     }
 
-                    //if already have prices, update the document, 
-                        //check if db has one item
-
-                        // latestPrices.markModifed(for each coin, .lastPrice + lastPriceDate???);
-
-                    //else
                     mongoose.connection.collections['prices'].drop( function(err) {
                         console.log('prices collection dropped');
                     });
@@ -50,15 +39,33 @@ module.exports = function(app, passport) {
             });
             
         })
-        .then(function(savedUser){
-           console.log('saved user'); 
-           console.log(savedUser); 
-        })
-        .catch(function(err){
-            console.log(err);
-        })
         
-    });  
+    });
+
+
+    app.post('/coin/qty', isLoggedIn, (req, res) =>  {
+
+        const {abrv, qty} = req.body;
+ 
+        User.findById(req.user._id)
+        .exec()
+        .then(function(user) {
+            user.coins[abrv] = req.body.qty;
+            user.markModified('coins'); 
+            user.save(function(err, savedUser) {
+                if (err) res.send(err);   
+                Price.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, savedPrices) { 
+                     if (err) res.send(err);
+                     if (savedPrices) res.send({savedPrices, savedUser});
+               });
+            });
+            
+        })        
+    });
+
+
+
+
 
     app.post('/user/cur', isLoggedIn, (req, res) => {
         User.findById(req.user._id)

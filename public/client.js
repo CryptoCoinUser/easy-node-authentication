@@ -1,13 +1,11 @@
-let tableRow =`<tr>
+let tableRow =`<tr class='coin'>
 <td class='abrv'></td>
-<td class='qty'></td>
+<td class='qty'><input class="qtyInput" type="text" size="7" value="0"></td>
 <td class='cur'>some currency price placeholder</td>
 <td class='total'>TBA</td>
 </tr>`
 
 function paintTheTable(data){
-  console.log('data.savedUser.cur');
-  console.log(data.savedUser.cur);
   const cur = data.savedUser.cur.toUpperCase();
   const coins = data.savedUser.coins;
 
@@ -15,13 +13,13 @@ function paintTheTable(data){
   const toAppend = Object.keys(coins).reverse().map(coin => {
     let $domNode = $(tableRow);
     $domNode.find('.abrv').text(coin);
-    $domNode.find('.qty').text(coins[coin]);
+    $domNode.find('.qty .qtyInput').val(coins[coin]);
 
     $domNode.find('.cur').text(data.savedPrices[coin].lastPrice[cur]);
 
     var total = Number(coins[coin]) * Number(data.savedPrices[coin].lastPrice[cur]);
     grandTotal += total;
-    $domNode.find('.total').text(total);
+    $domNode.find('.total').text(total.toFixed(2));
     //$domNode.find('.price').text(fakeCoinPrice(coin, 'USD'));
     return $domNode
   })
@@ -84,6 +82,27 @@ $('form#addForm').on('submit', function(event){
 
 });
 
+$('form#tableForm').on('keyup', 'input.qtyInput', function(event){
+  event.preventDefault();
+
+  const abrv = $(this).closest('.coin').find('.abrv').text();
+  
+  const qty = $(this).val();
+
+  //validate qty to be a whole or positive decimal
+
+  $.ajax({
+    method: "POST",
+    url: "/coin/qty",
+    data: { abrv, qty }
+  })
+  .done(function( data ) {
+    paintTheTable(data);
+  });
+
+});
+
+
 $('a.refresh').on("click", function(event){
 	event.preventDefault();
   fetchSaveShowAndTotalPrices();
@@ -91,7 +110,11 @@ $('a.refresh').on("click", function(event){
 
 
 // on load
-fetchSaveShowAndTotalPrices();
+
+if($(location).attr('pathname') === '/profile'){
+  fetchSaveShowAndTotalPrices();
+}
+
 
 	
   
