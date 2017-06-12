@@ -44,13 +44,14 @@ module.exports = function(app, passport) {
 
 
     app.post('/coin/qty', isLoggedIn, (req, res) =>  {
-
+        console.log('coin/qty endpoint');
         const {abrv, qty} = req.body;
- 
+        console.log(`abrv is ${abrv}, qty is ${qty}`);
+
         User.findById(req.user._id)
         .exec()
         .then(function(user) {
-            user.coins[abrv] = req.body.qty;
+            user.coins[abrv] = qty;
             user.markModified('coins'); 
             user.save(function(err, savedUser) {
                 if (err) res.send(err);   

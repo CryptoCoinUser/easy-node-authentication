@@ -12,7 +12,7 @@ function paintTheTable(data){
   var grandTotal = 0;
   const toAppend = Object.keys(coins).reverse().map(coin => {
     let $domNode = $(tableRow);
-    $domNode.find('.abrv').prepend(coin);
+    $domNode.find('.abrv').text(coin); // prepend(coin) is buggy
     $domNode.find('.qty .qtyInput').val(coins[coin]);
 
     $domNode.find('.cur').text(data.savedPrices[coin].lastPrice[cur]);
@@ -66,13 +66,12 @@ $('form#chooseCurrency select').on('change', function(event){
 	
 	const qty = $('form#addForm').find('input[name="qty"]').val();
 
-	// make a post ajax request with our values
 	$.ajax({
 		method: "POST",
 		url: "/coin/add",
 		data: { abrv, qty }
 	})
-	// succcess callback - update the DOM
+
 	.done(function( data ) {
     fetchSaveShowAndTotalPrices();
 	});
@@ -84,7 +83,7 @@ $('form#tableForm').on('keyup', 'input.qtyInput', function(event){
   this.value = this.value.replace(/[^0-9\.]/g,'');
 });
 
-$('form#addForm').on('keyup', 'input.generalQtyInput', function(event){
+$('form#addForm').on('keyup', 'input#generalQtyInput', function(event){
   event.preventDefault();
   this.value = this.value.replace(/[^0-9\.]/g,'');
 });
@@ -106,6 +105,7 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
     data: { abrv, qty }
   })
   .done(function( data ) {
+    console.log(data);
     paintTheTable(data);
   });
 
