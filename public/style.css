@@ -2,9 +2,11 @@
 body  { padding-top:80px; word-wrap:break-word; }
 td, th{padding-right: 2em; font-size: 2em;}
 tbody tr:nth-child(odd){background-color: #ccc;}
+/*
 a.btn[href="/login"],
 button[type="submit"]{width:80%; height: 200px;}
-a.refresh{font-size: 5em; display: block; text-align: center;}
+*/
+a.refresh{font-size: 1em; display: block; text-align: center;}
 
 select.yourCurrencyIs,
 span.yourCurrencyIs{
@@ -12,3 +14,5 @@ span.yourCurrencyIs{
  }
 
  table.prices {width:100%;}
+
+ hr{border-bottom: 10px solid #000;}

@@ -42,7 +42,7 @@ function fetchSaveShowAndTotalPrices(){
 }
 
 
-$('form#chooseCurrency').on('submit', function(event){
+$('form#chooseCurrency select').on('change', function(event){
   event.preventDefault();
   const cur = $('form#chooseCurrency').find('select.cur option:selected').val();
 
@@ -84,12 +84,22 @@ $('form#addForm').on('submit', function(event){
 
 $('form#tableForm').on('keyup', 'input.qtyInput', function(event){
   event.preventDefault();
+  
+  this.value = this.value.replace(/[^0-9\.]/g,'');
+
+
+});
+
+$('form#tableForm').on('blur', 'input.qtyInput', function(event){
+  event.preventDefault();
 
   const abrv = $(this).closest('.coin').find('.abrv').text();
   
   const qty = $(this).val();
 
   //validate qty to be a whole or positive decimal
+      //this.value = this.value.replace(/[^0-9\.]/g,'');
+
 
   $.ajax({
     method: "POST",

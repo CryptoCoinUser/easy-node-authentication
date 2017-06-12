@@ -8,74 +8,18 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <h1>Your Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="well">
-                <h2>Your Crypto Portfolio</h2>
-                    <a href="#" class="refresh">Refresh Prices</a>
-                    <form id="addForm">
-                        <div class="form-group">
-                            <label>Add A Coin</label>
-                            <select class="coin form-control"  name="abrv" required>
-                              <option class="addCoin">Choose Coin to Add or Update</option>
-                              <option value="BTC">Bitcoin</option>
-                              <option value="ETH">Ethereum</option>
-                              <option value="DASH">DASH</option>
-                              <option value="ZEC">ZCash</option>
-                              <option value="LTC">LiteCoin</option>
-                              <option value="DOGE">DogeCoin</option>
-                            </select>
+                    
+                <% if (user.coins) { %>
 
-                        </div>
-                        <div class="form-group">
-                            <label>Qty you have</label>
-                            <input type="number" class="form-control" name="qty"  size="7" value="0" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-warning btn-lg">Add or Update Coin</button>
-                    </form>
-
-                    <hr>
-
-                 <% if (user.coins) { %>
-                 <h3>Coins You Have</h3>
-
-                 <% if (user.cur) { 
-                    const curs = ['usd', 'eur', 'cny'];
-                    let cur;
-                 %>
-   
-                 <form id="chooseCurrency">
-                    <div class="form-group">
-                        <label>Show Prices In</label>
-                        <select class="cur form-control yourCurrencyIs"  name="cur" required>
-                         <%
-                            for (var i = 0; i < curs.length; i++){
-                            cur = curs[i];
-                         %>
-                            <option 
-                                value="<%= cur %>" 
-                                <% if (cur === user.cur) { %> selected <%}%>   
-                                >
-                                <%= cur %> 
-                            </option>         
-
-                        <% } %>
-                        </select>
-
-                    </div>
-
-
-                    <h1>Your currency is <span class="yourCurrencyIs"><%= user.cur %><span></h1>
-                <% } %>
-
-                    <button type="submit" class="btn btn-warning btn-lg">Change Currency</button>
-                </form>
-
+                <a href="#" class="refresh">Refresh Prices</a>
                 <form id="tableForm">
+                     <h2>Coins You Have</h2>
                      <table class = "prices">
                          <thead>
                             <tr>
@@ -98,11 +42,72 @@
                         </tfoot>
                     </table>
                 </form>
+             </div>
+                <div class="col-sm-6 well">
+
+                <% if (user.cur) { 
+                    const curs = ['usd', 'eur', 'cny'];
+                    let cur;
+                 %>
+   
+                 <form id="chooseCurrency">
+                    <div class="form-group">
+                        <h2>Show Prices In</h2>
+                        <select class="cur form-control yourCurrencyIs"  name="cur" required>
+                         <%
+                            for (var i = 0; i < curs.length; i++){
+                            cur = curs[i];
+                         %>
+                            <option 
+                                value="<%= cur %>" 
+                                <% if (cur === user.cur) { %> selected <%}%>   
+                                >
+                                <%= cur %> 
+                            </option>         
+
+                        <% } %>
+                        </select>
+
+                    </div>
+
+
+                    <h4>Showing prices and totals in <span class="yourCurrencyIs"><%= user.cur %></span></h4>
+                <% } %>
+
+                </form>
+
+
                 <% } else { %>
                     <p>no user.coins</p>
                 <% } %>
+                </div>
+                    
+                    <div class="col-sm-6 well">
+                    <form id="addForm">
+                        <div class="form-group">
+                            <h2>Add A Coin</h2>
+                            <select class="coin form-control"  name="abrv" required>
+                              <option class="addCoin">Choose Coin to Add or Update</option>
+                              <option value="BTC">Bitcoin</option>
+                              <option value="ETH">Ethereum</option>
+                              <option value="DASH">DASH</option>
+                              <option value="ZEC">ZCash</option>
+                              <option value="LTC">LiteCoin</option>
+                              <option value="DOGE">DogeCoin</option>
+                            </select>
 
-            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Most Recent Qty</label>
+                            <input id="generalQtyInput" type="text" class="form-control" name="qty"  size="7" value="0" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning btn-lg">Add Coin or Update Qty</button>
+                    </form>
+
+                   </div>
+
+           
         </div>
     </div>    
     <div class="row">
