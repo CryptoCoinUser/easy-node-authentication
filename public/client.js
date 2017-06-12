@@ -1,6 +1,6 @@
 let tableRow =`<tr class='coin'>
-<td class='abrv'> <a href="#" class="delete" title="Delete this coin">X</a></td>
-<td class='qty'><input class="qtyInput" type="text" size="7" value="0"></td>
+<td class='abrv'> </td>
+<td class='qty'><input class="qtyInput" type="text" size="7" value="0"> <a href="#" class="delete" title="Delete this coin">X</a></td>
 <td class='cur'>some currency price placeholder</td>
 <td class='total'>TBA</td>
 </tr>`
@@ -58,13 +58,10 @@ $('form#chooseCurrency select').on('change', function(event){
 
 })
 
-// button event listener
-$('form#addForm').on('submit', function(event){
-	// prevent default
-	event.preventDefault();
+ $('form#addForm').on('submit', function(event){
+ 	event.preventDefault();
 	
-	// get our values from our form
-	const abrv = $('form#addForm').find('select.coin option:selected').val(); 
+ 	const abrv = $('form#addForm').find('select.coin option:selected').val(); 
 	if(abrv === 'Choose Coin to Add or Update') return;
 	
 	const qty = $('form#addForm').find('input[name="qty"]').val();
@@ -84,22 +81,24 @@ $('form#addForm').on('submit', function(event){
 
 $('form#tableForm').on('keyup', 'input.qtyInput', function(event){
   event.preventDefault();
-  
   this.value = this.value.replace(/[^0-9\.]/g,'');
+});
 
-
+$('form#addForm').on('keyup', 'input.generalQtyInput', function(event){
+  event.preventDefault();
+  this.value = this.value.replace(/[^0-9\.]/g,'');
 });
 
 $('form#tableForm').on('blur', 'input.qtyInput', function(event){
   event.preventDefault();
 
   const abrv = $(this).closest('.coin').find('.abrv').text();
+  console.log('qty for abrv');
+  console.log(abrv);
   
   const qty = $(this).val();
-
-  //validate qty to be a whole or positive decimal
-      //this.value = this.value.replace(/[^0-9\.]/g,'');
-
+  console.log('qty');
+  console.log(qty);
 
   $.ajax({
     method: "POST",
@@ -110,6 +109,25 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
     paintTheTable(data);
   });
 
+});
+
+
+$('form#tableForm a.delete').on('click', function(event){
+  event.preventDefault();
+
+   const abrv = $(this).closest('.coin').find('.abrv').text();
+   console.log('delete abrv is');
+   console.log(abrv);
+/*
+  $.ajax({
+    method: "POST",
+    url: "/coin/delete",
+    data: { abrv }
+  })
+  .done(function( data ) {
+    paintTheTable(data);
+  });
+*/
 });
 
 
