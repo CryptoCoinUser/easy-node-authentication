@@ -1,5 +1,5 @@
 let tableRow =`<tr class='coin'>
-<td class='abrv'></td>
+<td class='abrv'> <a href="#" class="delete" title="Delete this coin">X</a></td>
 <td class='qty'><input class="qtyInput" type="text" size="7" value="0"></td>
 <td class='cur'>some currency price placeholder</td>
 <td class='total'>TBA</td>
@@ -12,7 +12,7 @@ function paintTheTable(data){
   var grandTotal = 0;
   const toAppend = Object.keys(coins).reverse().map(coin => {
     let $domNode = $(tableRow);
-    $domNode.find('.abrv').text(coin);
+    $domNode.find('.abrv').prepend(coin);
     $domNode.find('.qty .qtyInput').val(coins[coin]);
 
     $domNode.find('.cur').text(data.savedPrices[coin].lastPrice[cur]);

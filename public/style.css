@@ -16,3 +16,6 @@ span.yourCurrencyIs{
  table.prices {width:100%;}
 
  hr{border-bottom: 10px solid #000;}
+
+td a.delete{float:right; display: block; color: #f00; font-weight: bold;
+    text-decoration: none;}
