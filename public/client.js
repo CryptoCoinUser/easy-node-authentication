@@ -1,16 +1,31 @@
 let tableRow =`<tr class='coin'>
 <td class='abrv'> </td>
-<td class='qty'><input class="qtyInput" type="text" size="7" value="0"> <a href="#" class="delete" title="Delete this coin">X</a></td>
+<td class='qty'>
+  <input class="qtyInput" type="text" size="7" value="0"> 
+  <a href="#" class="delete" title="Delete this coin">X</a>
+</td>
 <td class='cur'>some currency price placeholder</td>
 <td class='total'>TBA</td>
 </tr>`
 
 function paintTheTable(data){
+
+  console.log('paintTheTable savedUser is');
+  console.log(data.savedUser);
+
+
   const cur = data.savedUser.cur.toUpperCase();
   const coins = data.savedUser.coins;
+  console.log('paintTheTable coins is');
+  console.log(coins);
 
   var grandTotal = 0;
   const toAppend = Object.keys(coins).reverse().map(coin => {
+    if(coins[coin] < 0){
+      return "";
+    }
+
+
     let $domNode = $(tableRow);
     $domNode.find('.abrv').text(coin); // prepend(coin) is buggy
     $domNode.find('.qty .qtyInput').val(coins[coin]);
@@ -92,12 +107,9 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
   event.preventDefault();
 
   const abrv = $(this).closest('.coin').find('.abrv').text();
-  console.log('qty for abrv');
-  console.log(abrv);
   
   const qty = $(this).val();
-  console.log('qty');
-  console.log(qty);
+
 
   $.ajax({
     method: "POST",
@@ -112,22 +124,23 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
 });
 
 
-$('form#tableForm a.delete').on('click', function(event){
+$('form#tableForm').on('click', 'a.delete', function(event){
   event.preventDefault();
+    console.log('delete hit');
 
    const abrv = $(this).closest('.coin').find('.abrv').text();
    console.log('delete abrv is');
    console.log(abrv);
-/*
+/**/
   $.ajax({
-    method: "POST",
+    method: "DELETE",
     url: "/coin/delete",
     data: { abrv }
   })
   .done(function( data ) {
     paintTheTable(data);
   });
-*/
+
 });
 
 

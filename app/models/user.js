@@ -10,12 +10,12 @@ var userSchema = mongoose.Schema({
         password     : String
     },
     coins    : {
-	    BTC: Number,
-	    ETH: Number,
-	    DASH: Number,
-	    ZEC: Number,
-	    LTC: Number,
-	    DOGE: Number
+	    BTC: { type : Number, default : -1 },
+	    ETH: { type : Number, default : -1 },
+	    DASH: { type : Number, default : -1 },
+	    ZEC: { type : Number, default : -1 },
+	    LTC: { type : Number, default : -1 },
+	    DOGE: { type : Number, default : -1 }
 	},
 	cur : String // currency 3-letter abr.; defaults to USD
 

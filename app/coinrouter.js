@@ -44,9 +44,9 @@ module.exports = function(app, passport) {
 
 
     app.post('/coin/qty', isLoggedIn, (req, res) =>  {
-        console.log('coin/qty endpoint');
+        //console.log('coin/qty endpoint');
         const {abrv, qty} = req.body;
-        console.log(`abrv is ${abrv}, qty is ${qty}`);
+        //console.log(`abrv is ${abrv}, qty is ${qty}`);
 
         User.findById(req.user._id)
         .exec()
@@ -65,8 +65,24 @@ module.exports = function(app, passport) {
     });
 
 
+    app.delete('/coin/delete', isLoggedIn, (req, res) =>  {
+        const {abrv} = req.body;
+        User.findById(req.user._id)
+        .exec()
+        .then(function(user) {
 
-
+            user.coins[abrv] = -1;
+            user.markModified('coins'); 
+            user.save(function(err, savedUser) {
+                if (err) res.send(err);   
+                Price.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, savedPrices) { 
+                     if (err) res.send(err);
+                     if (savedPrices) res.send({savedPrices, savedUser});
+                });
+            });   
+       })
+     
+    });
 
     app.post('/user/cur', isLoggedIn, (req, res) => {
         User.findById(req.user._id)
