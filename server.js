@@ -49,3 +49,11 @@ require('./app/coinrouter.js')(app, passport);
 // launch ======================================================================
 app.listen(port);
 console.log('listening on port ' + port);
+
+
+module.exports = {app};
+
+
+
+
+

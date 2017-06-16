@@ -3,6 +3,7 @@
 <head>
     <title>Profile</title>
     <%- include styles.ejs %>
+
 </head>
 <body>
 <div class="container">
@@ -20,6 +21,10 @@
                 <a href="#" class="refresh">Refresh Prices</a>
                 <form id="tableForm">
                      <h2>Coins You Have</h2>
+
+
+                     <div id="viz"></div>
+
                      <table class = "prices">
                          <thead>
                             <tr>
@@ -134,7 +139,16 @@
 
 
 </div>
-<!-- insert a script partial -->
+    <script src="//d3plus.org/js/d3.js"></script>
+    <script src="//d3plus.org/js/d3plus.js"></script>
 <%- include scripts.ejs %>
+
+<script>
+
+drawPieChart();
+
+</script>
+
+
 </body>
 </html>

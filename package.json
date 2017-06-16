@@ -1,6 +1,9 @@
 {
   "name": "node-authentication",
   "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.15.2",
@@ -16,5 +19,10 @@
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.4.2"
   }
 }

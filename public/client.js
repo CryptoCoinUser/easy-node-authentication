@@ -10,14 +10,9 @@ let tableRow =`<tr class='coin'>
 
 function paintTheTable(data){
 
-  console.log('paintTheTable savedUser is');
-  console.log(data.savedUser);
-
-
   const cur = data.savedUser.cur.toUpperCase();
   const coins = data.savedUser.coins;
-  console.log('paintTheTable coins is');
-  console.log(coins);
+
 
   var grandTotal = 0;
   const toAppend = Object.keys(coins).reverse().map(coin => {
@@ -117,7 +112,6 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
     data: { abrv, qty }
   })
   .done(function( data ) {
-    console.log(data);
     paintTheTable(data);
   });
 
@@ -126,12 +120,9 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
 
 $('form#tableForm').on('click', 'a.delete', function(event){
   event.preventDefault();
-    console.log('delete hit');
 
-   const abrv = $(this).closest('.coin').find('.abrv').text();
-   console.log('delete abrv is');
-   console.log(abrv);
-/**/
+
+  const abrv = $(this).closest('.coin').find('.abrv').text();
   $.ajax({
     method: "DELETE",
     url: "/coin/delete",
@@ -150,10 +141,60 @@ $('a.refresh').on("click", function(event){
 });
 
 
+/* visualization with d3plus.org */
+/* */
+function addToChartData(abrv){
+  let coinValuePair = {"abrv": abrv, "value": 0};
+  chartData.push(coinValuePair);
+}
+
+function deleteFromChartData(abrv){
+  for(var i = 0; i < chartData.length; i++){
+    if(chartData[i]["coin"] === coin){
+      chartData.splice(i,1);
+      return;
+    }
+  }
+}
+
+function updatePieChartValue(coin, total){
+  for(var i = 0; i < chartData.length; i++){
+    if(chartData[i]["coin"] === coin){
+      chartData[i]["value"] = Number(total);
+      return;
+    }
+  }
+}
+
+var chartData = [
+  {"value": 100, "abrv": "alpha"},
+  {"value": 70, "abrv": "beta"},
+  {"value": 40, "abrv": "gamma"},
+  {"value": 15, "abrv": "delta"},
+  {"value": 5, "abrv": "epsilon"},
+  {"value": 1, "abrv": "zeta"}
+];
+
+function drawPieChart(){
+  console.log('chartData');
+  console.log(chartData);
+  $('#viz').html('');
+  d3plus.viz()
+    .container("#viz")
+    .data(chartData)
+    .type("tree_map") //.type("pie")
+    .id("abrv")
+    .size("value")
+    .labels({"align": "left", "valign": "top"})
+    .draw()
+}
+
+
 // on load
 
 if($(location).attr('pathname') === '/profile'){
   fetchSaveShowAndTotalPrices();
+  // drawPieChart();
 }
 
 
