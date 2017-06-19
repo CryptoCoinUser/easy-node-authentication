@@ -33,9 +33,11 @@ function paintTheTable(data){
 
     addToChartData(coin);
     updateValueInChartData(coin, total);
+
     //$domNode.find('.price').text(fakeCoinPrice(coin, 'USD'));
     return $domNode
   })
+  drawChart();
   $('td.grandTotal').text(grandTotal.toFixed(2));
   // append to the dom    
   $('tbody.coinsYouHave').html(toAppend); 
@@ -173,14 +175,7 @@ function deleteFromChartData(abrv){
 
 
 
-var chartData = [
-  {"value": 100, "abrv": "alpha"},
-  {"value": 70, "abrv": "beta"},
-  {"value": 40, "abrv": "gamma"},
-  {"value": 15, "abrv": "delta"},
-  {"value": 5, "abrv": "epsilon"},
-  {"value": 1, "abrv": "zeta"}
-];
+var chartData = [];
 
 function drawChart(){
   console.log('chartData');
