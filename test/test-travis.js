@@ -23,7 +23,7 @@ console.log('test called');
         })
     });
 
-    /*
+    /**/
     it('/login should return login page', function() {
       let res;
       return chai.request(app)
@@ -34,7 +34,7 @@ console.log('test called');
 
         })
     });
-	*/
+	
 	
 
 
