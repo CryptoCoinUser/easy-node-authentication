@@ -22,7 +22,7 @@ function paintTheTable(data){
 
 
     let $domNode = $(tableRow);
-    $domNode.find('.abrv').text(coin); // prepend(coin) is buggy
+    $domNode.find('.abrv').text(coin); 
     $domNode.find('.qty .qtyInput').val(coins[coin]);
 
     $domNode.find('.cur').text(data.savedPrices[coin].lastPrice[cur]);
@@ -30,6 +30,9 @@ function paintTheTable(data){
     var total = Number(coins[coin]) * Number(data.savedPrices[coin].lastPrice[cur]);
     grandTotal += total;
     $domNode.find('.total').text(total.toFixed(2));
+
+    addToChartData(coin);
+    updateValueInChartData(coin, total);
     //$domNode.find('.price').text(fakeCoinPrice(coin, 'USD'));
     return $domNode
   })
@@ -132,6 +135,8 @@ $('form#tableForm').on('click', 'a.delete', function(event){
     paintTheTable(data);
   });
 
+  deleteFromChartData(abrv);
+
 });
 
 
@@ -148,23 +153,25 @@ function addToChartData(abrv){
   chartData.push(coinValuePair);
 }
 
+function updateValueInChartData(abrv, total){
+  for(var i = 0; i < chartData.length; i++){
+    if(chartData[i]["abrv"] === abrv){
+      chartData[i]["value"] = Number(total);
+      return;
+    }
+  }
+}
+
 function deleteFromChartData(abrv){
   for(var i = 0; i < chartData.length; i++){
-    if(chartData[i]["coin"] === coin){
+    if(chartData[i]["abrv"] === abrv){
       chartData.splice(i,1);
       return;
     }
   }
 }
 
-function updatePieChartValue(coin, total){
-  for(var i = 0; i < chartData.length; i++){
-    if(chartData[i]["coin"] === coin){
-      chartData[i]["value"] = Number(total);
-      return;
-    }
-  }
-}
+
 
 var chartData = [
   {"value": 100, "abrv": "alpha"},
@@ -175,7 +182,7 @@ var chartData = [
   {"value": 1, "abrv": "zeta"}
 ];
 
-function drawPieChart(){
+function drawChart(){
   console.log('chartData');
   console.log(chartData);
   $('#viz').html('');
@@ -194,7 +201,7 @@ function drawPieChart(){
 
 if($(location).attr('pathname') === '/profile'){
   fetchSaveShowAndTotalPrices();
-  // drawPieChart();
+  drawChart();
 }
 
 
