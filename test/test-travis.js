@@ -24,7 +24,7 @@ console.log('test called');
     .then(user => {
 
       app.use('*', (req, res, next) => {
-        console.log('Server.js INSIDE APP.USE');
+        //console.log('Server.js INSIDE APP.USE');
         req.user = user;
         req.isAuthenticated = function() {
           return true;
@@ -35,7 +35,7 @@ console.log('test called');
       require('../app/routes.js')(app, passport); 
       require('../app/coinrouter.js')(app, passport);
 
-      console.log('Server.js END of APP.USE')
+      //console.log('Server.js END of APP.USE')
       app.listen(3030);
     });
   });
@@ -46,6 +46,7 @@ console.log('test called');
         .get('/')
         .then(function(_res) {
           res = _res;
+          console.log('res is ' + res);
           res.should.have.status(200);
 
         })
