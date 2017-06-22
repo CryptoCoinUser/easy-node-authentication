@@ -18,6 +18,8 @@ var session      = require('express-session');
 
 var configDB = require('./config/database.js');
 
+var User  = require('./app/models/user');
+
 // configuration ===============================================================
 mongoose.connect(configDB.url); 
 //mongoose.connect(configDB); 
@@ -43,11 +45,18 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-// routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-require('./app/coinrouter.js')(app, passport);
+
 // launch ======================================================================
-app.listen(port);
+
+	
+
+
+if(process.env.NODE_ENV !== 'test'){
+	// routes ======================================================================
+	require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+	require('./app/coinrouter.js')(app, passport);
+	app.listen(port);
+}
 console.log('listening on port ' + port);
 
 

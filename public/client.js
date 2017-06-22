@@ -27,9 +27,35 @@ function paintTheTable(data){
 
     $domNode.find('.cur').text(data.savedPrices[coin].lastPrice[cur]);
 
-    var total = Number(coins[coin]) * Number(data.savedPrices[coin].lastPrice[cur]);
+    let total = Number(coins[coin]) * Number(data.savedPrices[coin].lastPrice[cur]);
     grandTotal += total;
-    $domNode.find('.total').text(total.toFixed(2));
+
+    let totalText;
+
+    if(total > 0){
+      switch(true){
+        case (total < 0.0001): 
+          console.log(total + ' < 0.0001');
+          totalText = total.toFixed(5);
+          break;
+        case (total < 0.001):
+          console.log(total + ' < 0.001'); 
+          totalText = total.toFixed(4);
+          break;
+        case (total < 0.01):
+          console.log(total + ' < 0.01');
+          totalText = total.toFixed(3);
+          break;
+      default:
+        console.log(total + ' default');
+        totalText = total.toFixed(2);
+      }
+    } else {
+      totalText = total;
+    }
+
+    $domNode.find('.total').text(totalText);
+    
 
     addToChartData(coin);
     updateValueInChartData(coin, total);
@@ -112,7 +138,7 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
 
 
   $.ajax({
-    method: "POST",
+    method: "PUT",
     url: "/coin/qty",
     data: { abrv, qty }
   })
@@ -178,8 +204,6 @@ function deleteFromChartData(abrv){
 var chartData = [];
 
 function drawChart(){
-  console.log('chartData');
-  console.log(chartData);
   $('#viz').html('');
   d3plus.viz()
     .container("#viz")

@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'test';
 var User  = require('../app/models/user');
-
+var passport = require('passport');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 //const faker = require('faker');
-const {app} = require('../server');
+let {app} = require('../server');
 const should = chai.should();
 
 
@@ -16,17 +16,32 @@ console.log('test called');
 
   describe('basic endpoints', function() {
 
-  let user;
   before(function() {
-    return User.findOne()
-    .exec()
-    .then(_user => user = _user);
+    let user = new User;
+    user.local.email = 'example@example.com';
+    user.local.password = 'abc123';
+    user.save()
+    .then(user => {
+
+      app.use('*', (req, res, next) => {
+        console.log('Server.js INSIDE APP.USE');
+        req.user = user;
+        req.isAuthenticated = function() {
+          return true;
+        };
+        next();
+      });
+
+      require('../app/routes.js')(app, passport); 
+      require('../app/coinrouter.js')(app, passport);
+
+      console.log('Server.js END of APP.USE')
+      app.listen(3030);
+    });
   });
 
     it('slash should return home page', function() {
       let res;
-      console.log('user is');
-      console.log(user);
       return chai.request(app)
         .get('/')
         .then(function(_res) {
@@ -48,19 +63,20 @@ console.log('test called');
         })
     });
 
-    /*
-    it('add coin for a findOne() user', function() {
-      let res;
-      let coinQtyPair = {abrv: "BTC", qty: 1}
+    /**/
+    it('add coin for new user', function() {
+      let coinQtyPair = {abrv: "BTC", qty: 100}
       return chai.request(app)
         .post('/coin/add')
         .send(coinQtyPair)
-        .then(function(_res) {
-          res = _res;
-
-          
+        .then(function(res) {
+          console.log('res.body.savedUser.coins["BTC"]');
+          console.log(res.body.savedUser.coins["BTC"])
+    
 
         })
     });
-    */
+
+    // delete user
+    
  });

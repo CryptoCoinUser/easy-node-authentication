@@ -9,8 +9,8 @@ module.exports = function(app, passport) {
     app.post('/coin/add', isLoggedIn, (req, res) =>  {
 
         const newCoin = req.body.abrv;
-        console.log('coin/add looks like');
-        console.log(req.body);
+        console.log('coin/add req.user');
+        console.log(req.user);
         User.findById(req.user._id)
         .exec()
         .then(function(user) {
@@ -44,7 +44,7 @@ module.exports = function(app, passport) {
     });
 
 
-    app.post('/coin/qty', isLoggedIn, (req, res) =>  {
+    app.put('/coin/qty', isLoggedIn, (req, res) =>  {
         //console.log('coin/qty endpoint');
         const {abrv, qty} = req.body;
         //console.log(`abrv is ${abrv}, qty is ${qty}`);

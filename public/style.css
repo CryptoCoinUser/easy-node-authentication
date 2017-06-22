@@ -21,6 +21,8 @@ span.yourCurrencyIs{
 td a.delete{float:right; display: block; color: #f00; font-weight: bold;
     text-decoration: none;}
 
+td.total{text-align: right;}
+
 @media only screen and (max-width: 640px) { 
 
 	th span.wide{display: none;}
