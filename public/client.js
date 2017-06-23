@@ -88,9 +88,9 @@ $('form#chooseCurrency select').on('change', function(event){
     url: "/user/cur",
     data: { cur }
   })
-  .done(function( curString ) {
+  .done(function( curObject ) {
     fetchSaveShowAndTotalPrices();
-    $('span.yourCurrencyIs').text(curString);
+    $('span.yourCurrencyIs').text(curObject.cur);
   });
 
 })
