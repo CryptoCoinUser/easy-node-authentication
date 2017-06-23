@@ -8,7 +8,7 @@
 <body>
 <div class="container">
 
-    <div class="page-header text-center">
+    <div class="page-header">
         <h1>Your Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
@@ -18,12 +18,12 @@
                     
                 <% if (user.coins) { %>
 
-                <a href="#" class="refresh">Refresh Prices</a>
+                
                 <form id="tableForm">
                      <h2>Coins You Have</h2>
 
 
-                     <div id="viz"></div>
+                     
 
                      <table class = "prices">
                          <thead>
@@ -48,6 +48,8 @@
                     </table>
                 </form>
              </div>
+
+
                 <div class="col-sm-6 well">
 
                 <% if (user.cur) { 
@@ -77,6 +79,7 @@
 
 
                     <h4>Showing prices and totals in <span class="yourCurrencyIs"><%= user.cur %></span></h4>
+                    <a href="#" class="refresh">Refresh Prices</a>
                 <% } %>
 
                 </form>
@@ -85,6 +88,9 @@
                 <% } else { %>
                     <p>no user.coins</p>
                 <% } %>
+                <hr>
+                <h4>Tree Map of Totals in Your Portfolio</h4>
+                <div id="viz"></div> 
                 </div>
                     
                     <div class="col-sm-6 well">
@@ -112,9 +118,14 @@
 
                    </div>
 
+                   <div class="col-sm-12"></div>
+                        
+                   
+
            
         </div>
-    </div>    
+     </div>
+
     <div class="row">
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-12">
@@ -139,6 +150,7 @@
 
 
 </div>
+
     <script src="//d3plus.org/js/d3.js"></script>
     <script src="//d3plus.org/js/d3plus.js"></script>
 <%- include scripts.ejs %>

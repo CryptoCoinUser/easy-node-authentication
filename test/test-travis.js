@@ -38,6 +38,10 @@ describe('endpoints with authenticated user', function() {
       });
     });
 
+    // after(function() {
+    //   return closeServer();
+    // });
+
 
     it('add coin for new user', function() {
       let coinQtyPair = {abrv: "BTC", qty: 100}
@@ -51,7 +55,6 @@ describe('endpoints with authenticated user', function() {
 
         })
     });
-
     // delete user
     
  }); // end describe auth
