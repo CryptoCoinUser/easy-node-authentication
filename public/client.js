@@ -35,19 +35,15 @@ function paintTheTable(data){
     if(total > 0){
       switch(true){
         case (total < 0.0001): 
-          console.log(total + ' < 0.0001');
           totalText = total.toFixed(5);
           break;
         case (total < 0.001):
-          console.log(total + ' < 0.001'); 
           totalText = total.toFixed(4);
           break;
         case (total < 0.01):
-          console.log(total + ' < 0.01');
           totalText = total.toFixed(3);
           break;
       default:
-        console.log(total + ' default');
         totalText = total.toFixed(2);
       }
     } else {

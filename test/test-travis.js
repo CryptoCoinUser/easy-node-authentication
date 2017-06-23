@@ -11,29 +11,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-  describe('non-autheticated endpoints', function() {
-
-   it('slash should return home page', function() {
-      return chai.request(app)
-        .get('/')
-        .then(function(res) {
-          console.log('res is ' + res);
-          res.should.have.status(200);
-
-        })
-    });
-
-    /**/
-    it('/login should return login page', function() {
-      return chai.request(app)
-        .get('/login')
-        .then(function(res) {
-          res.should.have.status(200);
-
-        })
-    });
-  });
-  describe('endpoints with authenticated user', function() {
+describe('endpoints with authenticated user', function() {
     /**/
     before(function() {
       let user = new User;
@@ -75,4 +53,30 @@ chai.use(chaiHttp);
 
     // delete user
     
- });
+ }); // end describe auth
+
+
+describe('non-autheticated endpoints', function() {
+
+ it('slash should return home page', function() {
+      require('../app/routes.js')(app, passport); 
+      require('../app/coinrouter.js')(app, passport);
+    return chai.request(app)
+      .get('/')
+      .then(function(res) {
+        console.log('res is ' + res);
+        res.should.have.status(200);
+
+      })
+  });
+
+  /**/
+  it('/login should return login page', function() {
+    return chai.request(app)
+      .get('/login')
+      .then(function(res) {
+        res.should.have.status(200);
+      });
+  });
+});
+
