@@ -43,6 +43,24 @@ describe('endpoints with authenticated user', function() {
     // });
 
 
+    // switch currency
+    it('switch currency for new user', function() {
+      let curObject = {cur : "cny"}
+      return chai.request(app)
+        .post('/user/cur')
+        .send(curObject)
+        .then(function(res) {
+            console.log('test /user/cur res.body');
+            console.log(res.body);
+            res.should.have.status(200);
+        })
+        .catch(function(err){
+          // console.log(err);
+        });
+    });
+
+
+    //add coin
     it('add coin for new user', function() {
       let coinQtyPair = {abrv: "BTC", qty: 100}
       return chai.request(app)
@@ -51,14 +69,16 @@ describe('endpoints with authenticated user', function() {
         .then(function(res) {
           console.log('res.body.savedUser.coins["BTC"]');
           console.log(res.body.savedUser.coins["BTC"])
-    
-
+          res.should.have.status(200);
         })
         .catch(function(err){
-          console.log(err);
+          // console.log(err);
         });
     });
+
+
     // delete user
+
     
  }); // end describe auth
 
