@@ -19,7 +19,7 @@ describe('endpoints with authenticated user', function() {
       let user = new User;
       user.local.email = 'example@example.com';
       user.local.password = 'abc123';
-      user.save()
+      return user.save()
       .then(user => {
 
         app.use('*', (req, res, next) => {
