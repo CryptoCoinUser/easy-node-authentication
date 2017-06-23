@@ -11,33 +11,9 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-  describe('basic endpoints', function() {
+  describe('non-autheticated endpoints', function() {
 
-  before(function() {
-    let user = new User;
-    user.local.email = 'example@example.com';
-    user.local.password = 'abc123';
-    user.save()
-    .then(user => {
-
-      app.use('*', (req, res, next) => {
-        //console.log('Server.js INSIDE APP.USE');
-        req.user = user;
-        req.isAuthenticated = function() {
-          return true;
-        };
-        next();
-      });
-
-      require('../app/routes.js')(app, passport); 
-      require('../app/coinrouter.js')(app, passport);
-
-      //console.log('Server.js END of APP.USE')
-      app.listen(3030);
-    });
-  });
-
-    it('slash should return home page', function() {
+   it('slash should return home page', function() {
       return chai.request(app)
         .get('/')
         .then(function(res) {
@@ -56,8 +32,34 @@ chai.use(chaiHttp);
 
         })
     });
-
+  });
+  describe('endpoints with authenticated user', function() {
     /**/
+    before(function() {
+      let user = new User;
+      user.local.email = 'example@example.com';
+      user.local.password = 'abc123';
+      user.save()
+      .then(user => {
+
+        app.use('*', (req, res, next) => {
+          //console.log('Server.js INSIDE APP.USE');
+          req.user = user;
+          req.isAuthenticated = function() {
+            return true;
+          };
+          next();
+        });
+
+        require('../app/routes.js')(app, passport); 
+        require('../app/coinrouter.js')(app, passport);
+
+        //console.log('Server.js END of APP.USE')
+        app.listen(3030);
+      });
+    });
+
+
     it('add coin for new user', function() {
       let coinQtyPair = {abrv: "BTC", qty: 100}
       return chai.request(app)
