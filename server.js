@@ -20,6 +20,9 @@ var configDB = require('./config/database.js');
 
 var User  = require('./app/models/user');
 
+
+mongoose.Promise = global.Promise;
+
 // configuration ===============================================================
 mongoose.connect(configDB.url); 
 //mongoose.connect(configDB); 
