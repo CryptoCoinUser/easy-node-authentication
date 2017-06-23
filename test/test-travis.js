@@ -54,6 +54,9 @@ describe('endpoints with authenticated user', function() {
     
 
         })
+        .catch(function(err){
+          console.log(err);
+        });
     });
     // delete user
     
