@@ -7,6 +7,7 @@ const chaiHttp = require('chai-http');
 //const faker = require('faker');
 let {app} = require('../server');
 const should = chai.should();
+const expect = chai.expect;
 
 
 
@@ -52,11 +53,12 @@ describe('endpoints with authenticated user', function() {
         .then(function(res) {
             console.log('test /user/cur res.body');
             console.log(res.body);
-            res.should.have.status(200);
+            //res.should.have.status(200);
+            expect(res.body.cur).to.equal("cny");
         })
-        .catch(function(err){
-          // console.log(err);
-        });
+        // .catch(function(err){
+        //   // console.log(err);
+        // });
     });
 
 
@@ -68,12 +70,14 @@ describe('endpoints with authenticated user', function() {
         .send(coinQtyPair)
         .then(function(res) {
           console.log('res.body.savedUser.coins["BTC"]');
-          console.log(res.body.savedUser.coins["BTC"])
-          res.should.have.status(200);
+          console.log(res.body.savedUser.coins["BTC"]);
+          //res.should.have.status(200);
+          //res.body.savedUser.coins["BTC"].should.equal(101);
+          expect(res.body.savedUser.coins["BTC"]).to.equal(100);
         })
-        .catch(function(err){
-          // console.log(err);
-        });
+        // .catch(function(err){
+        //   // console.log(err);
+        // });
     });
 
 
