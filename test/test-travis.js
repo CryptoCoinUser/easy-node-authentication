@@ -41,11 +41,11 @@ describe('endpoints with authenticated user', function() {
     });
 
     after(function() {
-      // User.findByIdAndRemove(user._id)
-      // .exec()
-      // .then(function(deletedUser) {
-      //   console.log("AFTER: deleted test user " + deletedUser);
-      // });
+      User.findByIdAndRemove(user._id)
+      .exec()
+      .then(function(deletedUser) {
+        console.log("AFTER: deleted test user " + deletedUser);
+      });
     });
 
 

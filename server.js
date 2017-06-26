@@ -51,17 +51,13 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 // launch ======================================================================
 
-	
-
-
 if(process.env.NODE_ENV !== 'test'){
 	// routes ======================================================================
 	require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 	require('./app/coinrouter.js')(app, passport);
 	app.listen(port);
+	console.log('listening on port ' + port);
 }
-console.log('listening on port ' + port);
-
 
 module.exports = {app};
 
