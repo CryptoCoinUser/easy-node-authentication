@@ -1,6 +1,6 @@
 # Node-Capstone: Bitcoin/Altcoin Portfolio Calc
 
-<p><a href="https://node-capstone.herokuapp.com/profile">Bitcoin/Altcoin Portfolio Calc</a> is an app that to keep track of your Bitcoin / Altcoin portfolio's current value</p>
+<p><a href="https://node-capstone.herokuapp.com/profile">Bitcoin/Altcoin Portfolio Calc</a> is an app that to keeps track of your Bitcoin / Altcoin portfolio's current value</p> <p>Currently only 6 (BTC, ETH, LTC, DASH, ZEC and DOGE) and 3 currencies (USD, EUR, and CNY) are supported</p>
 
 <img src="public/samplePortfolio.gif">
 
@@ -35,6 +35,7 @@ Open [`localhost:8080`]
 <h3>Back End</h3>
 <ul>
   <li>Started with a <a href="https://github.com/scotch-io/easy-node-authentication">Node Authentication Demo by Scotch-IO</a></li>
+  <li>Price feed by <a href="https://www.cryptocompare.com/api/">CryptoCompare.com API</a></li>
   <li>Node JS</li>
   <li>MongoDB &amp; Mongoose</li>
   <li>Mocha &amp; Chai testing</li>
