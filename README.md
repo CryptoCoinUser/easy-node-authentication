@@ -1,24 +1,44 @@
-s# Easy Node Authentication
+# Node-Capstone: Bitcoin/Altcoin Portfolio Calc
 
-Code for the entire scotch.io tutorial series: Complete Guide to Node Authentication
+<p><a href="https://node-capstone.herokuapp.com/profile">Bitcoin/Altcoin Portfolio Calc</a> is an app that to keep track of your Bitcoin / Altcoin portfolio's current value</p>
 
-We will be using Passport to authenticate users locally
+<img src="public/samplePortfolio.gif">
 
-#### Upgraded To Express 4.0
-This tutorial has been upgraded to use ExpressJS 4.0. See [the commit](https://github.com/scotch-io/easy-node-authentication/commit/020dea057d5a0664caaeb041b18978237528f9a3) for specific changes.
+## Getting started
+### Installing
+```
+>   git clone https://github.com/CryptoCoinUser/node-capstone.git
+>   cd node-capstone
+>   npm install
+```
+### Launching
+```
+>   nodemon server
+```
+Open [`localhost:8080`]
+### Testing
+```
+>   npm test
+```
 
-## Instructions
+<h2>Technology Used</h2>
 
-If you would like to download the code and try it for yourself:
+<h3>Front End</h3>
+<ul>
+  <li>HTML5</li>
+  <li>CSS3</li>
+  <li>JavaScript</li>
+  <li>jQuery</li>
+  <li><a href="http://d3plus.org/examples/advanced/9860999/">D3Plus Visualization Library</a></li>
+</ul>
 
-1. Clone the repo: `git clone git@github.com:scotch-io/easy-node-authentication`
-2. Install packages: `npm install`
-3. Change out the database configuration in config/database.js
-4. Change out auth keys in config/auth.js
-5. Launch: `node server.js`
-6. Visit in your browser at: `http://localhost:8080`
+<h3>Back End</h3>
+<ul>
+  <li>Started with a <a href="https://github.com/scotch-io/easy-node-authentication">Node Authentication Demo by Scotch-IO</a></li>
+  <li>Node JS</li>
+  <li>MongoDB &amp; Mongoose</li>
+  <li>Mocha &amp; Chai testing</li>
+  <li>Travis CI &amp; Heroku deployment</li>
+  <li>Passport JS user management</li>
+</ul>
 
-## The Tutorials
-
-- [Getting Started and Local Authentication](http://scotch.io/tutorials/javascript/easy-node-authentication-setup-and-local)
- 

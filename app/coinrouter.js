@@ -96,7 +96,11 @@ module.exports = function(app, passport) {
                 if (err) res.send(err);   
                 Price.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, savedPrices) { 
                      if (err) res.send(err);
-                     if (savedPrices) res.send({savedPrices, savedUser});
+                     if (savedPrices){
+                       console.log('app.delete res.send saved user:');
+                       console.log(savedUser);
+                       res.send({savedPrices, savedUser}); 
+                     } 
                 });
             });   
        })
