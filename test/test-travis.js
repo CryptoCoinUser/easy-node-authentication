@@ -44,7 +44,7 @@ describe('endpoints with authenticated user', function() {
       User.findByIdAndRemove(user._id)
       .exec()
       .then(function(deletedUser) {
-        console.log("AFTER: deleted test user " + deletedUser);
+        //console.log("AFTER: deleted test user " + deletedUser);
       });
     });
 
