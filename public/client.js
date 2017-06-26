@@ -149,7 +149,7 @@ $('form#tableForm').on('click', 'a.delete', function(event){
   event.preventDefault();
 
 
-  const abrv = $(this).closest('.coin').find('.abrv').text();
+  const abrv = $(this).closest('.coin').find('.abrv').text().toUpperCase(); //toUpperCase just in case;
   $.ajax({
     method: "DELETE",
     url: "/coin/delete",

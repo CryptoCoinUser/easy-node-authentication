@@ -90,7 +90,6 @@ module.exports = function(app, passport) {
         User.findById(req.user._id)
         .exec()
         .then(function(user) {
-
             user.coins[abrv] = -1;
             user.markModified('coins'); 
             user.save(function(err, savedUser) {

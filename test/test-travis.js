@@ -44,7 +44,7 @@ describe('endpoints with authenticated user', function() {
       User.findByIdAndRemove(user._id)
       .exec()
       .then(function(deletedUser) {
-        console.log("AFTER: deleted test user" + deletedUser);
+        console.log("AFTER: deleted test user " + deletedUser);
       });
     });
 
@@ -66,7 +66,7 @@ describe('endpoints with authenticated user', function() {
 
     //add coin
     it('add coin for new user', function() {
-      const magicQty = 1;
+      const magicQty = 2;
       const supportedCoin = "BTC"
       let coinQtyPair = {abrv: supportedCoin, qty: magicQty}
       return chai.request(app)
@@ -82,7 +82,35 @@ describe('endpoints with authenticated user', function() {
     });
 
 
-    // delete user
+    //app.put('/coin/qty'
+    it('put/change qty of new user\'s coin', function() {
+      const supportedCoin = "BTC";
+      const magicQty = 3;
+      let coinQtyPair = {abrv: supportedCoin, qty: magicQty}
+      return chai.request(app)
+        .put('/coin/qty')
+        .send(coinQtyPair)
+        .then(function(res) {
+          expect(res.body.savedUser.coins[supportedCoin]).to.equal(magicQty);
+        })
+        // .catch(function(err){
+        //    console.log(err);
+        // });
+    });
+
+    //delete coin
+    it('delete new user\'s coin', function() {
+      const supportedCoin = "BTC";
+      return chai.request(app)
+        .delete('/coin/delete')
+        .send(supportedCoin)
+        .then(function(res) {
+          expect(res.body.savedUser.coins[supportedCoin]).to.equal(-1);
+        })
+        // .catch(function(err){
+        //    console.log(err);
+        // });
+    });
 
     
  }); // end describe auth
@@ -110,5 +138,8 @@ describe('non-autheticated endpoints', function() {
         res.should.have.status(200);
       });
   });
+
+  //refresh coin prices?
+
 });
 
