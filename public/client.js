@@ -148,18 +148,17 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
 $('form#tableForm').on('click', 'a.delete', function(event){
   event.preventDefault();
 
-
-  const abrv = $(this).closest('.coin').find('.abrv').text().toUpperCase(); //toUpperCase just in case;
+  const coinToSend = $(this).closest('.coin').find('.abrv').text().toUpperCase(); //toUpperCase just in case;
   $.ajax({
     method: "DELETE",
     url: "/coin/delete",
-    data: { abrv }
+    data: { abrv: coinToSend }
   })
   .done(function( data ) {
     paintTheTable(data);
   });
 
-  deleteFromChartData(abrv);
+  deleteFromChartData(coinToSend);
 
 });
 

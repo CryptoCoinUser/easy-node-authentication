@@ -41,11 +41,11 @@ describe('endpoints with authenticated user', function() {
     });
 
     after(function() {
-      User.findByIdAndRemove(user._id)
-      .exec()
-      .then(function(deletedUser) {
-        console.log("AFTER: deleted test user " + deletedUser);
-      });
+      // User.findByIdAndRemove(user._id)
+      // .exec()
+      // .then(function(deletedUser) {
+      //   console.log("AFTER: deleted test user " + deletedUser);
+      // });
     });
 
 
@@ -100,12 +100,12 @@ describe('endpoints with authenticated user', function() {
 
     //delete coin
     it('delete new user\'s coin', function() {
-      const supportedCoin = "BTC";
+      const coinObject = {abrv: "BTC"};
       return chai.request(app)
         .delete('/coin/delete')
-        .send(supportedCoin)
+        .send(coinObject)
         .then(function(res) {
-          expect(res.body.savedUser.coins[supportedCoin]).to.equal(-1);
+          expect(res.body.savedUser.coins[coinObject.abrv]).to.equal(-1);
         })
         // .catch(function(err){
         //    console.log(err);
