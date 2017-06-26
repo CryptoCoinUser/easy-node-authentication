@@ -3,10 +3,10 @@
 body  { padding-top:40px; word-wrap:break-word; }
 td, th{padding-right: 2em; font-size: 2em;}
 tbody tr:nth-child(odd){background-color: #ccc;}
-/**/
+/*
 a.btn[href="/login"],
 button[type="submit"]{width:80%; height: 200px;}
-
+*/
 a.refresh{font-size: 1em; display: block; text-align: center;}
 
 select.yourCurrencyIs,
@@ -67,4 +67,4 @@ td.total{text-align: right;}
 
 } /* end media query */
 
-#viz{}
+#viz{text-transform: uppercase;}
