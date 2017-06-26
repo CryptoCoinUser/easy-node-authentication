@@ -9,8 +9,8 @@ module.exports = function(app, passport) {
     app.post('/coin/add', isLoggedIn, (req, res) =>  {
 
         const newCoin = req.body.abrv;
-        console.log('coin/add req.user');
-        console.log(req.user);
+        // console.log('coin/add req.user');
+        // console.log(req.user);
         User.findById(req.user._id)
         .exec()
         .then(function(user) {
@@ -53,7 +53,7 @@ module.exports = function(app, passport) {
            user.cur = req.body.cur;
            user.markModified('cur');
            user.save(function(err, savedUser){
-                console.log('in /user/cur savedUser.cur is ' + savedUser.cur);
+                //console.log('in /user/cur savedUser.cur is ' + savedUser.cur);
                 res.send({cur: savedUser.cur});
                 //console.log('currency updated', savedUser);
            }); 

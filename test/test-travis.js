@@ -15,8 +15,9 @@ chai.use(chaiHttp);
 
 describe('endpoints with authenticated user', function() {
     /**/
+    let user;
     before(function() {
-      let user = new User;
+      user = new User;
       user.local.email = 'example@example.com';
       user.local.password = 'abc123';
       return user.save()
@@ -39,13 +40,17 @@ describe('endpoints with authenticated user', function() {
       });
     });
 
-    // after(function() {
-    //   return closeServer();
-    // });
+    after(function() {
+      User.findByIdAndRemove(user._id)
+      .exec()
+      .then(function(deletedUser) {
+        console.log("AFTER: deleted test user" + deletedUser);
+      });
+    });
 
 
     // switch currency
-    it('switch currency for new user', function() {
+    it('switch new user', function() {
       let curObject = {cur : "cny"}
       return chai.request(app)
         .post('/user/cur')
@@ -61,12 +66,15 @@ describe('endpoints with authenticated user', function() {
 
     //add coin
     it('add coin for new user', function() {
-      let coinQtyPair = {abrv: "BTC", qty: 100}
+      const magicQty = 1;
+      const supportedCoin = "BTC"
+      let coinQtyPair = {abrv: supportedCoin, qty: magicQty}
       return chai.request(app)
         .post('/coin/add')
         .send(coinQtyPair)
         .then(function(res) {
-          expect(res.body.savedUser.coins["BTC"]).to.equal(100);
+          expect(res.body.savedUser.coins[supportedCoin]).to.equal(magicQty);
+          expect(res.body.savedUser.coins[supportedCoin]).to.be.at.least(0, 'should not be negative');
         })
         // .catch(function(err){
         //   // console.log(err);
