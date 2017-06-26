@@ -21,7 +21,9 @@ span.yourCurrencyIs{
 td a.delete{float:right; display: block; color: #f00; font-weight: bold;
     text-decoration: none;}
 
-td.total{text-align: right;}
+td.total,
+td.grandTotal{text-align: right;}
+td.grandTotal{font-weight: bold; }
 
 @media only screen and (max-width: 640px) { 
 
@@ -68,3 +70,4 @@ td.total{text-align: right;}
 } /* end media query */
 
 #viz{text-transform: uppercase;}
+#addForm select span{color:#f00; padding-left: 1em;}
