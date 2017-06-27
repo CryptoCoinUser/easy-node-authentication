@@ -29,7 +29,7 @@
                          <thead>
                             <tr>
                                 <th>Coin</th>
-                                <th>Qty</th>
+                                <th>Quantity</th>
                                 <th><span class="yourCurrencyIs"><%= user.cur %></span> <span class="wide">Unit Price</span></th>
                                 <th>Total</th>
                             </tr>
@@ -66,11 +66,11 @@
 
                         </div>
                         <div class="form-group">
-                            <label>Most Recent Qty</label>
+                            <label>Most Recent Quantity</label>
                             <input id="generalQtyInput" type="text" class="form-control" name="qty"  size="7" value="0" required>
                         </div>
 
-                        <button type="submit" class="btn btn-warning btn-lg">Add Coin or Update Qty</button>
+                        <button type="submit" class="btn btn-success btn-lg">Add Coin or Update Quantity</button>
                     </form>
 
                 </div>
@@ -99,12 +99,9 @@
                         <% } %>
                         </select>
                     </div>
-                    <h4>Showing prices and totals in <span class="yourCurrencyIs"><%= user.cur %></span></h4>
-                    <a href="#" class="refresh">Refresh Prices</a>
+                    <button class="refresh btn btn-lg btn-info">Refresh Prices in <span class="yourCurrencyIs"><%= user.cur %></span></button>
                 <% } %>
-
                 </form>
-
 
                 <% } else { %>
                     <p>no user.coins</p>
@@ -120,16 +117,18 @@
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-12">
             <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+                <h3><span class="fa fa-user"></span> Login Info</h3>
 
                 <% if (user.local.email) { %>
                     <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
+                        <strong>your database id</strong>: <%= user._id %><br>
+                        <strong>your email</strong>: <%= user.local.email %><br>
+                        <strong>your password (hashed)</strong>: <%= user.local.password %>
                     </p>
                     
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
+                    <h4 class="danger">Unlink your email from this account.</h4>
+                    <p>Similar to "Delete My Account", but does NOT delete your data from the database: just makes you loose access to the data. You will then be able to create another account with the same email.</p>
+                    <a href="/unlink/local" class="btn btn-danger">Unlink  - Warning this cannot be undone</a>
                 <% } else { %>
                     <a href="/connect/local" class="btn btn-default">Connect Local</a>
                 <% } %>

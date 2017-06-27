@@ -163,7 +163,7 @@ $('form#tableForm').on('click', 'a.delete', function(event){
 });
 
 
-$('a.refresh').on("click", function(event){
+$('button.refresh').on("click", function(event){
 	event.preventDefault();
   fetchSaveShowAndTotalPrices();
 });

@@ -7,6 +7,7 @@ tbody tr:nth-child(odd){background-color: #ccc;}
 a.btn[href="/login"],
 button[type="submit"]{width:80%; height: 200px;}
 */
+.btn-lg{display: block; margin-bottom: 2em;}
 a.refresh{font-size: 2em; display: block; text-align: center; background-color: #ccc; padding:1em 0;}
 
 select.yourCurrencyIs,
@@ -29,16 +30,19 @@ td.grandTotal{font-weight: bold; }
 
 	th span.wide{display: none;}
 
-	    table, thead, tbody, tfoot, th, td, tr { 
+	    table, tbody, tfoot, th, td, tr { 
       display: block; 
     }
-    
+
+    thead{display: none}
+    /*
     thead th.qty,
     thead th.total { 
       position: absolute;
       top: -9999px;
       left: -9999px;
     }
+    */
 
     tr { border: 1px solid #333; }
     
@@ -59,7 +63,7 @@ td.grandTotal{font-weight: bold; }
     }
     
     tbody td:nth-of-type(1):before { content: "Coin:"; }
-    tbody td:nth-of-type(2):before { content: "Qty:"; }
+    tbody td:nth-of-type(2):before { content: "Quantity:"; }
     tbody td:nth-of-type(3):before { content: "Price:"; }
     tbody td:nth-of-type(4):before { content: "Total:"; }
 
