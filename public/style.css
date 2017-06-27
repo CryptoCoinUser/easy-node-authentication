@@ -7,7 +7,7 @@ tbody tr:nth-child(odd){background-color: #ccc;}
 a.btn[href="/login"],
 button[type="submit"]{width:80%; height: 200px;}
 */
-a.refresh{font-size: 1em; display: block; text-align: center;}
+a.refresh{font-size: 2em; display: block; text-align: center; background-color: #ccc; padding:1em 0;}
 
 select.yourCurrencyIs,
 span.yourCurrencyIs{
@@ -70,4 +70,4 @@ td.grandTotal{font-weight: bold; }
 } /* end media query */
 
 #viz{text-transform: uppercase;}
-#addForm select span{color:#f00; padding-left: 1em;}
+#addForm option span{padding-left: 2em; }

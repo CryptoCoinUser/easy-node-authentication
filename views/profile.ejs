@@ -47,8 +47,33 @@
                         </tfoot>
                     </table>
                 </form>
+                <h4>Tree Map of Your Portfolio Totals</h4>
+                <div id="viz"></div> 
              </div>
+               <div class="col-sm-6 well">
+                    <form id="addForm">
+                        <div class="form-group">
+                            <h2>Add A Coin</h2>
+                            <select class="coin form-control"  name="abrv" required>
+                              <option class="addCoin">Choose Coin to Add or Update</option>
+                              <option value="BTC">Bitcoin - <span>BTC</span></option>
+                              <option value="ETH">Ethereum - <span>ETH</span></option>
+                              <option value="DASH">DASH - <span>(Formerly DarkCoin)</span></option>
+                              <option value="ZEC">ZCash - <span>ZEC</span></option>
+                              <option value="LTC">LiteCoin - <span>LTC</span></option>
+                              <option value="DOGE">DogeCoin - <span>DOGE</span></option>
+                            </select>
 
+                        </div>
+                        <div class="form-group">
+                            <label>Most Recent Qty</label>
+                            <input id="generalQtyInput" type="text" class="form-control" name="qty"  size="7" value="0" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning btn-lg">Add Coin or Update Qty</button>
+                    </form>
+
+                </div>
 
                 <div class="col-sm-6 well">
 
@@ -71,13 +96,9 @@
                                 >
                                 <%= cur %> 
                             </option>         
-
                         <% } %>
                         </select>
-
                     </div>
-
-
                     <h4>Showing prices and totals in <span class="yourCurrencyIs"><%= user.cur %></span></h4>
                     <a href="#" class="refresh">Refresh Prices</a>
                 <% } %>
@@ -88,41 +109,10 @@
                 <% } else { %>
                     <p>no user.coins</p>
                 <% } %>
-                <hr>
-                <h4>Tree Map of Totals in Your Portfolio</h4>
-                <div id="viz"></div> 
+             
+
                 </div>
                     
-                    <div class="col-sm-6 well">
-                    <form id="addForm">
-                        <div class="form-group">
-                            <h2>Add A Coin</h2>
-                            <select class="coin form-control"  name="abrv" required>
-                              <option class="addCoin">Choose Coin to Add or Update</option>
-                              <option value="BTC">Bitcoin <span>BTC</span></option>
-                              <option value="ETH">Ethereum <span>ETH</span></option>
-                              <option value="DASH">DASH <span>Formerly DarkCoin</span></option>
-                              <option value="ZEC">ZCash <span>ZEC</span></option>
-                              <option value="LTC">LiteCoin <span>LTC</span></option>
-                              <option value="DOGE">DogeCoin <span>DOGE</span></option>
-                            </select>
-
-                        </div>
-                        <div class="form-group">
-                            <label>Most Recent Qty</label>
-                            <input id="generalQtyInput" type="text" class="form-control" name="qty"  size="7" value="0" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-warning btn-lg">Add Coin or Update Qty</button>
-                    </form>
-
-                   </div>
-
-                   <div class="col-sm-12"></div>
-                        
-                   
-
-           
         </div>
      </div>
 
