@@ -1,8 +1,12 @@
 let tableRow =`<tr class='coin'>
-<td class='abrv'> </td>
-<td class='qty'>
-  <input class="qtyInput" type="text" size="7" value="0"> 
+<td class='abrv'>
+  <span></span> 
   <a href="#" class="delete" title="Delete this coin">X</a>
+</td>
+<td class='qty'>
+  <input class="qtyInput" type="text" size="6" value="0">
+  <a href="#" class="saveQty" title="Save quantity">&#10003;</a> 
+  
 </td>
 <td class='cur'>some currency price placeholder</td>
 <td class='total'>TBA</td>
@@ -22,7 +26,7 @@ function paintTheTable(data){
 
 
     let $domNode = $(tableRow);
-    $domNode.find('.abrv').text(coin); 
+    $domNode.find('.abrv span').text(coin); 
     $domNode.find('.qty .qtyInput').val(coins[coin]);
 
     $domNode.find('.cur').text(data.savedPrices[coin].lastPrice[cur]);
@@ -128,10 +132,8 @@ $('form#addForm').on('keyup', 'input#generalQtyInput', function(event){
 $('form#tableForm').on('blur', 'input.qtyInput', function(event){
   event.preventDefault();
 
-  const abrv = $(this).closest('.coin').find('.abrv').text();
-  
+  const abrv = $(this).closest('.coin').find('.abrv span').text();
   const qty = $(this).val();
-
 
   $.ajax({
     method: "PUT",
@@ -144,11 +146,15 @@ $('form#tableForm').on('blur', 'input.qtyInput', function(event){
 
 });
 
+$('form#tableForm').on('click', 'a.saveQty', function(event){
+  event.preventDefault();
+});
+
 
 $('form#tableForm').on('click', 'a.delete', function(event){
   event.preventDefault();
 
-  const coinToSend = $(this).closest('.coin').find('.abrv').text().toUpperCase(); //toUpperCase just in case;
+  const coinToSend = $(this).closest('.coin').find('.abrv span').text().toUpperCase(); //toUpperCase just in case;
   $.ajax({
     method: "DELETE",
     url: "/coin/delete",
@@ -162,6 +168,9 @@ $('form#tableForm').on('click', 'a.delete', function(event){
 
 });
 
+$('form#tableForm').on('click', 'a.save', function(event){
+  event.preventDefault();
+});
 
 $('button.refresh').on("click", function(event){
 	event.preventDefault();

@@ -37,9 +37,17 @@ Open [`localhost:8080`]
   <li>Started with a <a href="https://github.com/scotch-io/easy-node-authentication">Node Authentication Demo by Scotch-IO</a></li>
   <li>Price feed by <a href="https://www.cryptocompare.com/api/">CryptoCompare.com API</a></li>
   <li>Node JS</li>
-  <li>MongoDB &amp; Mongoose</li>
+  <li>MongoDB (hosted on <a href="https://mlab.com/">mLab</a>) &amp; Mongoose</li>
   <li>Mocha &amp; Chai testing</li>
   <li>Travis CI &amp; Heroku deployment</li>
   <li>Passport JS user management</li>
+</ul>
+<hr>
+<h3>Future Features Road Map</h3>
+<ul>
+  <li>Support for more, if not all 40+ crypto currencies supported by CryptoCompare API</li>
+  <li>Support for showing prices in more fiat currencies and/or other cryptos</li>
+  <li>Login with Facebook, Twitter or Google</li>
+  <li>Keeping a history of a user's past coin qunantities</li> 
 </ul>
 

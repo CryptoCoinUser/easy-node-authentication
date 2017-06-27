@@ -19,13 +19,29 @@ span.yourCurrencyIs{
 
  hr{border-bottom: 10px solid #000;}
 
-td a.delete{float:right; display: block; color: #f00; font-weight: bold;
+td a.delete{
+   float:right; display: block; /**/
+  color: #f00; font-weight: bold;
     text-decoration: none;}
+td.qty input{float:left;}
+td a.saveQty{color:#00b762; text-decoration: none; 
+}
 
+
+td.cur,
 td.total,
-td.grandTotal{text-align: right;}
+td.grandTotal{text-align: right;
+white-space: nowrap;}
 td.grandTotal{font-weight: bold; }
-
+@media only screen and (min-width: 641px) {
+  td:first-child{
+    padding-left: 0.5em; 
+    padding-right: 2em;
+  }
+  td.qty input{ float:left;}
+  td a.saveQty{ display: block; float: left;/**/
+}
+}
 @media only screen and (max-width: 640px) { 
 
 	th span.wide{display: none;}
