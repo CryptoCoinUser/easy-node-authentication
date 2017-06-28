@@ -30,10 +30,15 @@ td a.saveQty{color:#00b762; text-decoration: none;
 
 td.cur,
 td.total,
-td.grandTotal{text-align: right;
+td.grandTotal{
 white-space: nowrap;}
 td.grandTotal{font-weight: bold; }
+
 @media only screen and (min-width: 641px) {
+  td.cur,
+  td.total,
+  td.grandTotal{text-align: right;}
+
   td:first-child{
     padding-left: 0.5em; 
     padding-right: 2em;
@@ -67,6 +72,7 @@ td.grandTotal{font-weight: bold; }
       border-bottom: 1px dotted #666; 
       position: relative;
       padding-left: 35%; 
+      padding-bottom: 5%;
     }
     
     tbody td:before { 
@@ -89,5 +95,6 @@ td.grandTotal{font-weight: bold; }
 
 } /* end media query */
 
-#viz{text-transform: uppercase;}
+#viz,
+.d3plus_tooltip{text-transform: uppercase;}
 #addForm option span{padding-left: 2em; }
