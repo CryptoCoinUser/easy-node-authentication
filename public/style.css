@@ -10,6 +10,8 @@ button[type="submit"]{width:80%; height: 200px;}
 .btn-lg{display: block; margin-bottom: 2em;}
 a.refresh{font-size: 2em; display: block; text-align: center; background-color: #ccc; padding:1em 0;}
 
+img.screenshot{display: block; margin:0 auto 2em;}
+
 select.yourCurrencyIs,
 span.yourCurrencyIs{
 	text-transform: uppercase;
