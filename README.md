@@ -2,7 +2,7 @@
 
 <p><a href="https://node-capstone.herokuapp.com/profile">Bitcoin/Altcoin Portfolio Calc</a> is an app that to keeps track of your Bitcoin / Altcoin portfolio's current value</p> <p>Currently only 6 (BTC, ETH, LTC, DASH, ZEC and DOGE) and 3 currencies (USD, EUR, and CNY) are supported</p>
 
-<img src="public/samplePortfolio.gif">
+<img src="public/node-capstone1024x768_animated.gif">
 
 ## Getting started
 ### Installing
