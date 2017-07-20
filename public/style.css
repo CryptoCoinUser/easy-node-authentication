@@ -10,7 +10,9 @@ button[type="submit"]{width:80%; height: 200px;}
 .btn-lg{display: block; margin-bottom: 2em;}
 a.refresh{font-size: 2em; display: block; text-align: center; background-color: #ccc; padding:1em 0;}
 
-img.screenshot{display: block; margin:0 auto 2em;}
+.demo{text-align: center;}
+img.screenshot{display: block; margin:0 auto 2em;
+border:10px dashed #000;}
 
 select.yourCurrencyIs,
 span.yourCurrencyIs{
